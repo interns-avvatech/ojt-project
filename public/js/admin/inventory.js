@@ -1,3 +1,6 @@
 $(function () {
-    // Your code here
+    $('.btn').on('click', function(){
+        alert('hello')
+    })
+    $('#example').DataTable();
 });
