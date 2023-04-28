@@ -1,6 +1,8 @@
 {{-- Table --}}
 <div class="container-fluid px-5">
     @if (isset($inventories) && count($inventories) > 0)
+        <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-inventory') }}">Bulk
+            Delete</button>
         <div class="table-responsive-md">
             <table class="table table-sm table-hover bg-white" id="ojt_flow">
                 <thead class="bg-light table-group-divider table-divider-color">
@@ -40,32 +42,25 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($inventories as $item)
-                        {{-- Quantity Sorting --}}
-                        @if ($condition == '=')
-                            @if ($item['quantity'] == $value)
+                    @if (is_array($inventories) && count($inventories))
+                        @foreach ($inventories as $item)
+                            {{-- Quantity Sorting --}}
+                            @if ($condition == '=' && $item['quantity'] == $value)
+                                    @include('admin.inventory.sort-list.inventoryRow')
+                            @elseif ($condition == '<' && $item['quantity'] < $value)
+                                    @include('admin.inventory.sort-list.inventoryRow')
+                            @elseif ($condition == '<=' && $item['quantity'] <= $value)
+                                    @include('admin.inventory.sort-list.inventoryRow')
+                            @elseif ($condition == '>' && $item['quantity'] > $value)
+                                    @include('admin.inventory.sort-list.inventoryRow')
+                            @elseif ($condition == '>=' && $item['quantity'] >= $value)
+                                    @include('admin.inventory.sort-list.inventoryRow')
+                            @else
                                 @include('admin.inventory.sort-list.inventoryRow')
                             @endif
-                        @elseif ($condition == '<')
-                            @if ($item['quantity'] < $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @endif
-                        @elseif ($condition == '<=')
-                            @if ($item['quantity'] <= $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @endif
-                        @elseif ($condition == '>')
-                            @if ($item['quantity'] > $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @endif
-                        @elseif ($condition == '>=')
-                            @if ($item['quantity'] >= $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @endif
-                        @else
-                            @include('admin.inventory.sort-list.inventoryRow')
-                        @endif
-                    @endforeach
+                        @endforeach
+                    @endif
+
                 </tbody>
                 <tfoot>
 

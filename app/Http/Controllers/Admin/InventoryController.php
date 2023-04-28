@@ -49,12 +49,12 @@ class InventoryController extends Controller
 
         if ($condition === "default") {
             $inventories = DataUpload::with('product')->where('quantity', '>', 0)->get()->toArray();
-            return view('inventory', ['inventories' => $inventories])
+            return view('admin.inventory.inventory', ['inventories' => $inventories])
                 ->with(compact('inventories', 'condition', 'value', 'settings'));
         } else if ($condition === "all") {
             $inventories = DataUpload::with('product')->orderby('quantity', 'desc')->get()->toArray();
 
-            return view('inventory')->with(compact('inventories', 'condition', 'value', 'settings'));
+            return view('admin.inventory.inventory')->with(compact('inventories', 'condition', 'value', 'settings'));
         } else {
             $inventories = DataUpload::with('product')->where('quantity', 0)->get()->toArray();
             return view('admin.inventory.inventory', ['inventories' => $inventories])
@@ -67,14 +67,14 @@ class InventoryController extends Controller
     {
 
         $condition = $request->input('condition');
-        $value = $request->input('value');
+        $value = (int)$request->input('value');
 
-        $query = DB::table('csv_outputs')->orderBy('quantity');
+        $query = DataUpload::orderByRaw("CAST(quantity AS UNSIGNED)")->get();
         $settings = Setting::with('paymentMethods', 'paymentStatus', 'currency')->first()->toArray();
         $settings['method'] =  PaymentMethod::get()->toArray();
         $settings['status'] =  PaymentStatus::get()->toArray();
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
-
+   
         switch ($condition) {
             case '=':
                 $query->where('quantity', $value);
@@ -95,6 +95,7 @@ class InventoryController extends Controller
                 // handle invalid condition
                 break;
         }
+     
 
         $inventories = DataUpload::with('product', 'log')->get()->toArray();
         // dd($inventories);
@@ -131,8 +132,28 @@ class InventoryController extends Controller
             $csvOutput->increment('quantity', 1);
         }
 
-        return redirect()->back();
+        if ($csvOutput->quantity === 0) {
+            return $this->inventoryTable();
+        } else {
+            return redirect()->back();
+        }
     }
+
+     //Decrement QTY
+     public function down(Request $request, $id)
+     {
+         $csvOutput = DataUpload::find($id);
+ 
+         if ($csvOutput) {
+             if ($csvOutput->quantity <= 0) {
+                 $csvOutput->quantity = 0;
+             } else {
+                 $csvOutput->decrement('quantity', 1);
+             }
+         }
+         return redirect()->back();
+     }
+
     //Edit Price
     public function edit(Request $request, $id)
     {
@@ -194,9 +215,19 @@ class InventoryController extends Controller
     public function delete($id)
     {
         $csv = DataUpload::find($id);
-        $csv->product()->delete();
         $csv->delete();
 
         return redirect()->back()->with('sucess', 'Product deleted');
+    }
+    
+    //Delete Selected Row
+    public function deleteSelectInventory(Request $request)
+    {
+
+        $ids = $request->ids;
+        $csv =  DataUpload::whereIn('id', explode(",", $ids));
+        $csv->delete();
+    
+        return response()->json(['success' => "Order Deleted."]);
     }
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light col-lg-12">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
+        <div class="navbar-nav ms-auto">
             <a class="nav-item nav-link mx-2" href="{{ route('dashboard') }}">Activity Logs
                 <i class="fa fa-history" aria-hidden="true"></i>
             </a>

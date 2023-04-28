@@ -84,12 +84,12 @@
 
 
                             <td class="">
-                                <button type="button" class="btn" data-toggle="modal"
-                                    data-target="{{ '#edit-order' . $order->id }}"><i class='fa fa-pencil'></i></button>
+                                <button type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="{{ '#edit-order' . $order->id }}"><i class='fa fa-pencil'></i></button>
                                 @include('admin.orders.order-modals.edit-modal')
 
-                                <button type="button" class="btn" data-toggle="modal"
-                                    data-target="{{ '#order' . $order->id }}"><i class='fa fa-undo'></i></button>
+                                <button type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="{{ '#order' . $order->id }}"><i class='fa fa-undo'></i></button>
                                 @include('admin.orders.order-modals.delete-modal')
 
                             </td>
@@ -109,6 +109,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                
             </tfoot>
             @endif
 
@@ -118,11 +119,123 @@
     </div>
 @endsection
 
+@push('style')
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+@endpush
 @push('script')
     {{-- required script --}}
+
+
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
     {{-- custom script --}}
     <script src="{{ asset('js/admin/order.js') }}"></script>
+    <script>
+        $(function() {
+            $('#order-table').DataTable({
+                "lengthMenu": [50, 100, 200, 500],
+                dom: 'Bfrtip',
+                buttons: [
+                    'pageLength',
+                    'excelHtml5',
+                    {
+                        extend: 'colvis',
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+                        columnText: function(dt, idx, title) {
+                            return (idx) + ': ' + title;
+                        }
+                    }
+                ],
+                columnDefs: [{
+                    targets: [12, 13, 14, 15, 16, 17, 18],
+                    visible: false
+                }],
+                "footerCallback": function(row, data, start, end, display) {
+                    var api = this.api(),
+                        data;
+
+                    var intVal = function(i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$₱\,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    };
+
+                    //columns
+                    var column6total = api
+                        .column(6)
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var column7total = api
+                        .column(7)
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var column8total = api
+                        .column(8)
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var column9total = api
+                        .column(9)
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+
+
+                    // footer column 6
+                    $(api.column(6).footer()).html(`<b>
+            <?php
+            foreach ($settings['currency_option'] as $currency):
+                if ($settings['tcg_mid'] === $currency['id']):
+                    echo $currency['symbol'];
+                endif;
+            endforeach;
+            ?> 
+            ${column6total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</b>`);
+
+                    // footer column 7
+                    $(api.column(7).footer()).html(`<b>${column7total}</b>`);
+
+                    // footer column 8
+                    $(api.column(8).footer()).html(`<b>
+            <?php foreach ($settings['currency_option'] as $currency):
+                if ($settings['sold_price'] === $currency['id']):
+                    echo $currency['symbol'];
+                endif;
+            endforeach;
+            ?> 
+            ${column8total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</b>`);
+
+                    // footer column 9
+                    $(api.column(9).footer()).html(`
+            <?php foreach ($settings['currency_option'] as $currency):
+                if ($settings['ship_cost'] === $currency['id']):
+                    echo $currency['symbol'];
+                endif;
+            endforeach; ?> 
+            <b>${column9total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</b>`);
+                }
+
+
+            });
+        })
+    </script>
 @endpush
