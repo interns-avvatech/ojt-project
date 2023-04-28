@@ -137,7 +137,7 @@ class InventoryController extends Controller
         } else {
             return redirect()->back();
         }
-    }
+    } 
 
      //Decrement QTY
      public function down(Request $request, $id)
