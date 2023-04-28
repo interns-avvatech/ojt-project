@@ -49,7 +49,7 @@ $(function () {
     $(document).on('change', '.quantity', function (event) {
         if (event.target === this) {
             var row = $(this).closest('.product_row')
-            var tcg_mid = row.find('.tcg_mid').val().trim().replace('$', '')
+            var tcg_mid = row.find('.price_input').val()
             var multiplier = row.find('.multiplier').val()
             var quantity = $(this).val()
             var sold = (parseFloat(tcg_mid) * parseFloat(multiplier)) * quantity;
@@ -105,7 +105,7 @@ $(function () {
         if (event.target === this) {
             var row = $(this).closest('.product_row')
             var multiplier = $(this).val()
-            var tcg_mid = row.find('.tcg_mid').val().trim().replace('$', '')
+            var tcg_mid = row.find('.price_input').val()
             var multiplied_price = (parseFloat(tcg_mid) * parseFloat(multiplier))
             row.find('.multiplied_price').val(multiplied_price.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
