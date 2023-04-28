@@ -11,6 +11,13 @@
     {{-- required css --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-1JBNehX9mHyYvH8DRmBwOwxxDoM0F33mTQ2O2OxJRYmID9XOz1Yq3NqNwU0vm6teJen6REbN6Ud4a+z4J4LXrQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   
+   
+ 
 
     {{-- custom css --}}
     <link rel="stylesheet" href="{{ asset('css/admin/custom.css') }}">
@@ -19,8 +26,9 @@
 
 <body>
 
+    @include('admin.layout.nav')
     {{-- page content --}}
-    <div class="container">
+    <div>
         @yield('content')
     </div>
 
