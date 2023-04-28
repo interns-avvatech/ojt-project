@@ -33,18 +33,7 @@ $(function () {
         "bFilter": false,
 
     });
-    // Apply the search
-    table.columns().eq(0).each(function(colIdx) {
-        $('input, select', table.column(colIdx).header()).on('keyup change', function() {
-            table
-                .column(colIdx)
-                .search(this.value)
-                .draw();
-        });
-        $('input, select', table.column(colIdx).header()).on('click', function(e) {
-            e.stopPropagation();
-        });
-    });
+  
 
 
    

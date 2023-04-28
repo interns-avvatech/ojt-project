@@ -67,9 +67,9 @@ class InventoryController extends Controller
     {
 
         $condition = $request->input('condition');
-        $value = (int)$request->input('value');
+        $value = $request->input('value');
 
-        $query = DataUpload::orderByRaw("CAST(quantity AS UNSIGNED)")->get();
+        $query = DataUpload::orderBy("quantity")->get();
         $settings = Setting::with('paymentMethods', 'paymentStatus', 'currency')->first()->toArray();
         $settings['method'] =  PaymentMethod::get()->toArray();
         $settings['status'] =  PaymentStatus::get()->toArray();
