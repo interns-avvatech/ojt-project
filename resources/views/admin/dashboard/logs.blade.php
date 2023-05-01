@@ -4,6 +4,14 @@
 
 @section('content')
 
+
+    <div class="card">
+        <div class="card-body">
+            <p>Welcome, {{ Auth::user()->name }}!</p>
+            <br>
+        </div>
+    </div>
+
     <div class="col-lg-10 mx-auto">
         <div class="d-flex justify-content-between">
             <h1 class="my-4">Activity log</h1>
