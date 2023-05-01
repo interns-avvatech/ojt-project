@@ -1,6 +1,6 @@
-@extends('admin.layout.layout')
+@extends('layouts.admin')
 @section('title', 'Inventory')
-@section('content')
+@section('admin-content')
 
     @php
         // Check if the file is still in JSON format

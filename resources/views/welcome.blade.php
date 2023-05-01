@@ -1,6 +1,6 @@
-@extends('admin.layout.layout')
+@extends('layouts.client')
 @section('title', 'welcome page')
-@section('content')
+@section('client-content')
     <button class="btn btn-primary">Click me</button>
     
 

@@ -1,8 +1,8 @@
-@extends('admin.layout.layout')
+@extends('layouts.admin')
 
 @section('title', 'Logs')
 
-@section('content')
+@section('admin-content')
 
 
     <div class="card">

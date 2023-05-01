@@ -16,7 +16,7 @@
                 <a class="nav-item nav-link mx-2" href="{{ route('orders') }}">Orders
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </a>
-                
+
                 @if (Auth::user()->role == 'admin')
                 <a class="nav-item nav-link mx-2" href="{{ route('settings') }}">Settings
                     <i class="fa fa-cog" aria-hidden="true"></i>
