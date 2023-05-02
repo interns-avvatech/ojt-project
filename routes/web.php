@@ -68,11 +68,13 @@ Route::middleware(['auth', 'user-role:admin'])->group(function(){
 });
 
 
-
-
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['guest'])->group(function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
 });
+
+
 
 Route::post('/get-alert', function () {
     return response()->json(['message' => 'success to use ajax'], 200);
