@@ -9,7 +9,7 @@
             <h1 class="my-4">Activity log</h1>
             <div class="col-auto">
                 <button class="btn btn-success my-4" data-target="#cache" data-toggle="modal" data-placement="top"
-                    title="Counter">Counter<i class="fa fa-th ms-2"></i></button>
+                    title="Counter">Counter<i class="fa fa-th ml-2"></i></button>
                 @include('admin.dashboard.action-popUp.cache')
             </div>
         </div>

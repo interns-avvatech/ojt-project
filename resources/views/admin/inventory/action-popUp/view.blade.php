@@ -3,7 +3,9 @@
         <div class="modal-content">
             <div class="modal-header align-middle">
                 <h5 class="modal-title" id="myModalLabel">Card Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="card">
@@ -45,8 +47,8 @@
                     <div class="d-flex justify-content-center align-items-start mt-3">
                         <div class="">
                             <h4>Card Price: <strong>${{ $item['price_each'] }}</strong></h4>
-                        </div>         
-                            <span class="badge badge-primary rounded-pill ml-3">Quantity: {{ $item['quantity'] }}</span>
+                        </div>
+                        <span class="badge badge-primary rounded-pill ml-3">Quantity: {{ $item['quantity'] }}</span>
                     </div>
 
                 </div>

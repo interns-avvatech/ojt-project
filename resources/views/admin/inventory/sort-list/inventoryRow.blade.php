@@ -76,19 +76,19 @@
     {{-- Action Column --}}
     <td class="align-middle">
         <div class="btn-group" role="group">
-            <a class="btn btn-secondary" href="#view{{ $item['id'] }}" data-bs-toggle="modal"
-                data-bs-toggle="tooltip" data-bs-placement="top" title="View {{ $item['product']['name'] }}"><i
+            <a class="btn btn-secondary" href="#view{{ $item['id'] }}" data-toggle="modal"
+                data-toggle="tooltip" data-placement="top" title="View {{ $item['product']['name'] }}"><i
                     class="fa fa-eye"></i></a>
             @include('admin.inventory.action-popUp.view')
 
 
-            <button class="btn btn-success" data-bs-target="#edit{{ $item['id'] }}" data-bs-toggle="modal"
-                data-bs-placement="top" title="Sold {{ $item['product']['name'] }}"
+            <button class="btn btn-success" data-target="#edit{{ $item['id'] }}" data-toggle="modal"
+                data-placement="top" title="Sold {{ $item['product']['name'] }}"
                 @if ($item['quantity'] === 0) disabled @endif><i class="fa fa-shopping-cart"></i></button>
 
 
-            <button class="btn btn-danger" data-bs-target="#delete{{ $item['id'] }}" data-bs-toggle="modal"
-                data-bs-placement="top" title="Delete {{ $item['product']['name'] }}"><i
+            <button class="btn btn-danger" data-target="#delete{{ $item['id'] }}" data-toggle="modal"
+                data-placement="top" title="Delete {{ $item['product']['name'] }}"><i
                     class="fa fa-trash"></i></button>
             @include('admin.inventory.action-popUp.action')
         </div>
