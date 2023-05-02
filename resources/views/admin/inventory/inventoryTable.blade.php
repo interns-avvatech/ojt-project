@@ -15,7 +15,7 @@
                         <th scope="col" class="text-center">Frame Effects</th>
                         <th scope="col" class="text-center">Finish</th>
                         <th scope="col" class="text-center">Rarity</th>
-                        <th scope="col" class="col-1 text-center"><a href="#sort" data-bs-toggle="modal"
+                        <th scope="col" class="col-1 text-center"><a href="#sort" data-toggle="modal"
                                 style="text-decoration: none; color:black;">Quantity</a></th>
                         <th scope="col" class="text-center">TCG Mid</th>
                         <th scope="col" class="text-center">Total</th>
@@ -33,7 +33,7 @@
                         <td scope="col" class="text-center">Frame Effects</td>
                         <td scope="col" class="text-center">Finish</td>
                         <td scope="col" class="text-center">Rarity</td>
-                        <td scope="col" class="col-1 text-center"><a href="#sort" data-bs-toggle="modal"
+                        <td scope="col" class="col-1 text-center"><a href="#sort" data-toggle="modal"
                                 style="text-decoration: none; color:black;">Quantity</a></td>
                         <td scope="col" class="text-center">TCG Mid</td>
                         <td scope="col" class="text-center">Total</td>
