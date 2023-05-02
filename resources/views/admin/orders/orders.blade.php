@@ -1,6 +1,6 @@
-@extends('admin.layout.layout')
+@extends('layouts.admin')
 @section('title', 'Orders')
-@section('content')
+@section('admin-content')
     <div class="mx-4">
         <h1 class="my-4">Orders</h1>
 

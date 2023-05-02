@@ -1,6 +1,6 @@
-@extends('admin.layout.layout')
+@extends('layouts.admin')
 @section('title', 'Settings')
-@section('content')
+@section('admin-content')
     <div class="col-6 mx-auto">
         <h2 class="my-4">Settings</h2>
         <hr>

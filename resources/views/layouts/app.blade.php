@@ -27,11 +27,8 @@
 
 <body>
 
-    @include('admin.layout.nav')
-    {{-- page content --}}
-    <div>
-        @yield('content')
-    </div>
+    @yield('content')
+
 
     {{-- required js dependencies --}}
     <script src="{{ asset('js/app.js') }}"></script>
