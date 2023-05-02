@@ -16,7 +16,7 @@ $(function () {
                 '</option><option value="' + "uncommon" +
                 '">Uncommon</option><option value="' + "rare" +
                 '">Rare</option><option value="' + "mythic" +
-                '">Mythic</option></select>'
+                '">Mythic2</option></select>'
             );
         } else {
             var title = $(this).text();
@@ -33,10 +33,18 @@ $(function () {
         "bFilter": false,
 
     });
-  
 
-
-   
+    table.columns().eq(0).each(function(colIdx) {
+        $('input, select', table.column(colIdx).header()).on('keyup change', function() {
+            table
+                .column(colIdx)
+                .search(this.value)
+                .draw();
+        });
+        $('input, select', table.column(colIdx).header()).on('click', function(e) {
+            e.stopPropagation();
+        });
+    });
 
     $('#selector').on('click', function (e) {
         if ($(this).is(':checked', true)) {
