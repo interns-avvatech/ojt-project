@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\OrderController;
@@ -23,6 +24,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function (){
 
     Route::prefix('admin')->group(function () {
+        
         // DASHBOARD ROUTES
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
     
@@ -58,6 +60,11 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/add-method', [SettingsController::class, 'addMethod'])->name('add-method');
     });
 
+});
+
+Route::middleware(['auth', 'user-role:admin'])->group(function(){
+    //Admin Panel
+    Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
 });
 
 
