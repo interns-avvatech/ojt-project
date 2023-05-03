@@ -84,12 +84,12 @@
 
 
                             <td class="">
-                                <button type="button" class="btn" data-bs-toggle="modal"
-                                    data-bs-target="{{ '#edit-order' . $order->id }}"><i class='fa fa-pencil'></i></button>
+                                <button type="button" class="btn" data-toggle="modal"
+                                    data-target="{{ '#edit-order' . $order->id }}"><i class='fa fa-pencil'></i></button>
                                 @include('admin.orders.order-modals.edit-modal')
 
-                                <button type="button" class="btn" data-bs-toggle="modal"
-                                    data-bs-target="{{ '#order' . $order->id }}"><i class='fa fa-undo'></i></button>
+                                <button type="button" class="btn" data-toggle="modal"
+                                    data-target="{{ '#order' . $order->id }}"><i class='fa fa-undo'></i></button>
                                 @include('admin.orders.order-modals.delete-modal')
 
                             </td>
