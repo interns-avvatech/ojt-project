@@ -63,8 +63,12 @@ Route::middleware(['auth'])->group(function (){
 });
 
 Route::middleware(['auth', 'user-role:admin'])->group(function(){
-    //Admin Panel
-    Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
+    Route::prefix('admin')->group(function() {
+        
+        //Admin Panel
+        Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
+    });
+    
 });
 
 

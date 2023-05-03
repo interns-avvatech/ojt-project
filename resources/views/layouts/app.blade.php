@@ -17,6 +17,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
+    {{--from css template--}}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/admin/css/bootstrap.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/admin/css/animate.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/admin/css/main.css') }}">
+
+
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/admin/icons/weather/weather-icons.min.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/admin/icons/weather/weather-icons-wind.min.css') }}">
+
 
 
     @stack('style')
@@ -25,7 +34,8 @@
 
 </head>
 
-<body>
+<body id="top">
+
 
     @yield('content')
 
