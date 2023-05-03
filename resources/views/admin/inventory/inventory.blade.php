@@ -66,7 +66,8 @@
                 columnDefs: [{
                     orderable: false,
                     width: '100px',
-                    targets: [1]
+                    targets: [0,1,8,9,10,11],
+                     width: '15%' ,
                 }],
                 dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
                 language: {
