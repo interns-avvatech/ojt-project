@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Setting;
+use App\Models\CheckOut;
 use App\Models\Currency;
 use App\Models\DataUpload;
-use App\Models\Order;
+use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\PaymentStatus;
-use App\Models\Setting;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class OrderController extends Controller
 {
@@ -20,10 +23,12 @@ class OrderController extends Controller
         $settings['status'] =  PaymentStatus::get()->toArray();
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
-        $orders = Order::get();
-        // dd($orders->toArray());
+        $orders = Order::with('product')->get()->toArray();
+        $checkouts = CheckOut::get()->toArray();
+     
+        // dd($orders);
         return view('admin.orders.orders', [
-            'orders' => $orders, 'settings' => $settings,
+            'orders' => $orders, 'settings' => $settings, '$checkouts' => $checkouts,
         ]);
 
         // return view('orders')->with(compact('orders'));
@@ -59,5 +64,36 @@ class OrderController extends Controller
         return response()->json(['success' => "Order Deleted."]);
     }
 
+    public function checkout(Request $request)
+    {
+        $check = Order::with('product')->get()->toArray();
+        // $checkouts = CheckOut::where('checkout_id', $id)->get()->toArray();
+        // dd($checkouts);
+      
 
+        $checkoutId = uniqid();
+
+        $checkouts = new CheckOut();
+        $checkouts->checkout_id = $checkoutId;
+        $checkouts->sold_to = $request->name;
+        $checkouts->payment_method = $request->payment_methods;
+        $checkouts->ship_cost = $request->ship_cost;
+        $checkouts->ship_price = $request->ship_price;
+        $checkouts->address = $request->address;
+        $checkouts->note = $request->note;
+
+        // $checkouts->card_name = $check['card_name'];
+        // $checkouts->tcgplacer_id = $check['tcgplacer_id'];
+        // $checkouts->tcg_mid = $check['tcg_mid'];
+        // $checkouts->qty = $check['qty'];
+        // $checkouts->total = $check['sold_price'];
+        // $checkouts->payment_status = $check['payment_status'];
+        $checkouts->user_id  = Auth::user()->id;
+        $checkouts->cart_contents  = json_encode($check);
+        $checkouts->save();
+
+      
+
+        return redirect()->back();
+    }
 }

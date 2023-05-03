@@ -30,6 +30,7 @@ class InventoryController extends Controller
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
         $inventories = DataUpload::with('product')->where('quantity', '>', 0)->get()->toArray();
+    //   dd($inventories);
 
         return view('admin.inventory.inventory', ['inventories' => $inventories])
             ->with(compact('inventories', 'condition', 'value',  'settings'));
@@ -183,10 +184,10 @@ class InventoryController extends Controller
         $csv = DataUpload::with('product')->find($id)->toArray();
 
         // dd($csv);
-        DataUpload::find($id)->update([
-            'quantity' =>  (int)($csv['quantity']) -  (int)$request->quantity
+        // DataUpload::find($id)->update([
+        //     'quantity' =>  (int)($csv['quantity']) -  (int)$request->quantity
 
-        ]);
+        // ]);
 
         $orders = new Order();
         $orders->sold_date = Carbon::now()->format('Y/m/d');
