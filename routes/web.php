@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\AdminPanelController;
-
+use App\Http\Controllers\Admin\ShippingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,21 +61,30 @@ Route::middleware(['auth'])->group(function (){
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/add-currency', [SettingsController::class, 'addCurrency'])->name('add-currency');
         Route::post('/add-method', [SettingsController::class, 'addMethod'])->name('add-method');
+
+        //shipping
+        Route::get('shipping', [ShippingController::class, 'shipping'])->name('shipping');
     });
 
 });
 
 Route::middleware(['auth', 'user-role:admin'])->group(function(){
-    //Admin Panel
-    Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
+    Route::prefix('admin')->group(function() {
+        
+        //Admin Panel
+        Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
+    });
+    
 });
 
 
-
-
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['guest'])->group(function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
 });
+
+
 
 Route::post('/get-alert', function () {
     return response()->json(['message' => 'success to use ajax'], 200);
