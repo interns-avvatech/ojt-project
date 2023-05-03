@@ -1,5 +1,5 @@
  <!-- Modal -->
- <div class="modal fade" id="{{ 'order' . $order->id }}" tabindex="-1"  aria-labelledby="exampleModalLabel"
+ <div class="modal fade" id="{{ 'order' . $order['id']}}" tabindex="-1"  aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -16,7 +16,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <a href="{{ route('delete-order', [$order->id, $order->tcgplacer_id]) }}">
+                <a href="{{ route('delete-order', [$order['id'], $order['tcgplacer_id']]) }}">
                     <button type="button" class="btn btn-primary" id="delete">Yes</button>
                 </a>
             </div>
