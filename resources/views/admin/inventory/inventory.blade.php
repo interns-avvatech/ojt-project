@@ -1,23 +1,6 @@
 @extends('layouts.admin')
 @section('title', 'Inventory')
 @section('admin-content')
-
-    @php
-        // Check if the file is still in JSON format
-        function is_valid_json($raw_json)
-        {
-            $decoded = json_decode($raw_json, true);
-            if ($decoded == null || is_int($decoded)) {
-                return $raw_json;
-            } else {
-                $result = '';
-                foreach ($decoded as $key => $value) {
-                    $result .= '<br>' . '<b>' . $key . '</b>' . ': ' . $value;
-                }
-                print_r($result);
-            }
-        }
-    @endphp
     <br>
     <div class="container-fluid px-5">
         <div class="col-auto">
@@ -71,27 +54,76 @@
 @endsection
 
 @push('script')
-    {{-- required script --}}
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
-
-
     {{-- custom script --}}
     <script src="{{ asset('js/admin/inventory.js') }}"></script>
     <script>
         $(function() {
-            // Apply the search
-            table.columns().eq(0).each(function(colIdx) {
-                $('input, select', table.column(colIdx).header()).on('keyup change', function() {
-                    table
-                        .column(colIdx)
-                        .search(this.value)
-                        .draw();
-                });
-                $('input, select', table.column(colIdx).header()).on('click', function(e) {
-                    e.stopPropagation();
-                });
+            'use strict';
+
+            // DataTable setup
+            $.extend($.fn.dataTable.defaults, {
+                autoWidth: false,
+                columnDefs: [{
+                    orderable: false,
+                    width: '100px',
+                    targets: [1]
+                }],
+                dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+                language: {
+
+                    lengthMenu: '<span>Show:</span> _MENU_',
+                    paginate: {
+                        'first': 'First',
+                        'last': 'Last',
+                        'next': '&rarr;',
+                        'previous': '&larr;'
+                    }
+                },
+
+                lengthMenu: [50, 100, 200, 500],
+                displayLength: 50,
+                scrollY: '55vh',
+                scrollCollapse: true,
+                // stateSave: true,
+                // "bFilter": false,
+
             });
-        })
+            // Individual column searching with selects
+            $('#ojt_flow').DataTable({
+                retrieve: true,
+                // searching: false,
+                initComplete: function() {
+                    this.api().columns([2, 3, 4, 5, 6, 7]).every(function() {
+
+                        var column = this;
+                        var select = $(
+                                '<select class="filter-select" data-placeholder="' + column
+                                .header().textContent + '"><option value=""></option></select>'
+                            )
+                            .appendTo($(column.footer()).not(':last-child').empty())
+                            .on('change', function() {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function(d, j) {
+                            select.append('<option value="' + d + '">' + d +
+                                '</option>')
+                        });
+                    });
+                }
+            });
+
+            // Enable Select2 select for individual column searching
+            $('.filter-select').select2();
+
+            $('.select').select2();
+
+        });
     </script>
 @endpush

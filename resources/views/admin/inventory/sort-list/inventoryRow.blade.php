@@ -3,9 +3,6 @@
 
     {{-- Get art_crop and normal image link --}}
     <td class="td-height">
-        @php
-            //dd($item['product']['name']);
-        @endphp
         @if ($item['product']['art_crop'] !== null && $item['product']['normal'] !== null)
             <img src="{{ $item['product']['art_crop'] }}" alt="{{ $item['product']['name'] }}"
                 class="thumbnail align-middle text-center" onmouseenter="this.src='{{ $item['product']['normal'] }}'"
@@ -17,7 +14,7 @@
 
     <td class="align-middle text-center">{{ $item['product']['color_identity'] }}</td>
 
-    <td class="align-middle text-center">{{ $item['product']['type_line'] }}</td>
+    <td  class="align-middle text-center">{{ $item['product']['type_line'] }}</td>
 
     <td class="align-middle text-center">{{ $item['product']['frame_effects'] }}</td>
 
@@ -44,7 +41,6 @@
         </div>
     </td>
 
-
     {{-- Price (Edit) --}}
     <td class="col-1 align-middle width-150">
         <form method="post" action="{{ route('price_each.edit', $item['id']) }}" class="disable-form"
@@ -61,7 +57,7 @@
                     @endforeach
                 </div>
                 <input name="price_each" value="{{ $item['price_each'] }}" type="text"
-                    class="form-control price_input" id="price_input_{{ $item['id'] }}"><span
+                    class="form-control price_input " id="price_input_{{ $item['id'] }}"><span
                     hidden>{{ $item['price_each'] }}</span>
             </div>
         </form>
