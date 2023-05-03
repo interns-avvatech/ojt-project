@@ -26,7 +26,7 @@ print_r($result);
         <div class="d-flex">
             <div class="col-auto me-2">
                 {{-- Upload CSV --}}
-                <button class="btn btn-success" data-bs-target="#upload" data-bs-toggle="modal" data-bs-placement="top" title="Upload CSV">Upload File<i class="fa fa-upload ms-2"></i></button>
+                <button class="btn btn-success" data-bs-target="#upload" data-bs-toggle="modal" data-bs-placement="top" title="Upload CSV">Upload File</button>
                 @include('admin.inventory.action-popUp.upload')
             </div>
             <div class="dropdown">
@@ -58,9 +58,10 @@ print_r($result);
     </div>
     @endif
 
-</div>
+
 
 @include('admin.inventory.inventoryTable')
+</div>
 
 @endsection
 
