@@ -24,11 +24,11 @@ class OrderController extends Controller
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
         $orders = Order::with('product')->get()->toArray();
-        $checkouts = CheckOut::get()->toArray();
+  
      
         // dd($orders);
         return view('admin.orders.orders', [
-            'orders' => $orders, 'settings' => $settings, '$checkouts' => $checkouts,
+            'orders' => $orders, 'settings' => $settings,
         ]);
 
         // return view('orders')->with(compact('orders'));
@@ -66,9 +66,12 @@ class OrderController extends Controller
 
     public function checkout(Request $request)
     {
-        $check = Order::with('product')->get()->toArray();
+        $orders = Order::with('product')->get()->toArray();
         // $checkouts = CheckOut::where('checkout_id', $id)->get()->toArray();
         // dd($checkouts);
+        // $checkout = json_encode($orders);
+        // echo"<pre>";print_r($checkout);die;
+        
       
 
         $checkoutId = uniqid();
@@ -82,6 +85,10 @@ class OrderController extends Controller
         $checkouts->address = $request->address;
         $checkouts->note = $request->note;
 
+        $checkouts->total = 0;
+        foreach ($orders as $order){
+            $checkouts->total = floatVal($order['sold_price']) + $checkouts->total ;
+        }
         // $checkouts->card_name = $check['card_name'];
         // $checkouts->tcgplacer_id = $check['tcgplacer_id'];
         // $checkouts->tcg_mid = $check['tcg_mid'];
@@ -89,9 +96,10 @@ class OrderController extends Controller
         // $checkouts->total = $check['sold_price'];
         // $checkouts->payment_status = $check['payment_status'];
         $checkouts->user_id  = Auth::user()->id;
-        $checkouts->cart_contents  = json_encode($check);
+        $checkouts->cart_contents  = json_encode($orders);
         $checkouts->save();
 
+       
       
 
         return redirect()->back();
