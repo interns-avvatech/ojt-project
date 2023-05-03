@@ -87,7 +87,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- <tr>
+                     <tr>
                         <td colspan="12" class="text-center">Upload Data</td>
                         <td></td>
                         <td></td>
@@ -100,7 +100,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                    </tr> --}}
+                    </tr> 
                 </tbody>
             </table>
         </div>
