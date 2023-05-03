@@ -70,7 +70,7 @@
         </div>
         
     @else
-        <br>
+        {{-- <br>
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-8 text-center p-5">
@@ -81,6 +81,28 @@
                     <h1>No data found. Please insert a CSV file.</h1>
                 </div>
             </div>
+        </div> --}}
+        <div class="table-responsive-md">
+            <table class="table datatable datatable-column-search-selects table-sm table-hover " id="ojt_flow">
+                <thead class="bg-light table-group-divider table-divider-color">
+                    <tr class="tr-background">
+                        <th scope="col" class="text-center ">Selector</th>
+                        <th scope="col" class="text-center ">Thumbnail</th>
+                        <th scope="col" class="text-center ">Name</th>
+                        <th scope="col" class="text-center ">Color Identity</th>
+                        <th scope="col" class="text-center">Type</th>
+                        <th scope="col" class="text-center">Frame Effects</th>
+                        <th scope="col" class="text-center">Finish</th>
+                        <th scope="col" class="text-center">Rarity</th>
+                        <th scope="col" class="col-1 text-center"><a href="#sort" data-toggle="modal"
+                                style="text-decoration: none; color:black;">Quantity</a></th>
+                        <th scope="col" class="text-center">TCG Mid</th>
+                        <th scope="col" class="text-center">Total</th>
+                        <th scope="col" class="text-center">Action</th>
+                        @include('admin.inventory.action-popUp.sortQuantity')
+                    </tr>
+                </thead>
+            </table>
         </div>
     @endif
 </div>
