@@ -4,7 +4,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="myModalLabel">{{ $item['product']['name'] }} Sold</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form action="{{ route('csv.update', $item['id']) }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -129,7 +131,7 @@
 
                 {{-- fotter button --}}
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i>
                         Cancel</button>
                     <button type="submit" class="btn btn-success"><i class="fa fa-shopping-cart"></i>
                         Sold</button>
@@ -146,7 +148,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="myModalLabel">Delete Row</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form action="{{ route('csv.delete', ['id' => $item['id']]) }}" method="post"
                 enctype="multipart/form-data">
@@ -159,7 +163,7 @@
                 </div>
                 {{-- fotter button --}}
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
                             class="fa fa-times"></i> Cancel</button>
                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
                 </div>

@@ -3,7 +3,9 @@
         <div class="modal-content">
             <div class="modal-header align-middle">
                 <h5 class="modal-title" id="myModalLabel">Counter</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 @if (Cache::get('csv_import_progress'))
@@ -14,7 +16,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <i class="fa fa-bars"></i>
-                                            <span class="ms-2">Rows processed:</span>
+                                            <span class="ml-2">Rows processed:</span>
                                         </div>
                                         <div>
                                             <span
@@ -26,7 +28,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <i class="fa fa-clock-o"></i>
-                                            <span class="ms-2">Total time:</span>
+                                            <span class="ml-2">Total time:</span>
                                         </div>
                                         <div>
                                             <span class="fw-bold">{{ Cache::get('totalTime') }}</span>

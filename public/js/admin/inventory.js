@@ -1,42 +1,17 @@
 $(function () {
-    var finish = 6;
-    var rarity = 7;
-    //Input Text and Dropdown
-    $('#ojt_flow thead td').each(function (index) {
-        if (index === 6) {
-            var title = "Finish";
-            $(this).html('<select><option value="">' + title +
-                '</option><option value="' + "Normal" +
-                '">Normal</option><option value="' + "Foil" +
-                '">Foil</option></select>'
-            );
-        } else if (index === 7) {
-            var title = "Rarity";
-            $(this).html('<select><option value="">' + title +
-                '</option><option value="' + "uncommon" +
-                '">Uncommon</option><option value="' + "rare" +
-                '">Rare</option><option value="' + "mythic" +
-                '">Mythic</option></select>'
-            );
-        } else {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="' + title + '" />');
-        }
+
+
+    table.columns().eq(0).each(function(colIdx) {
+        $('input, select', table.column(colIdx).header()).on('keyup change', function() {
+            table
+                .column(colIdx)
+                .search(this.value)
+                .draw();
+        });
+        $('input, select', table.column(colIdx).header()).on('click', function(e) {
+            e.stopPropagation();
+        });
     });
-
-    // DataTable
-    var table = $('#ojt_flow').DataTable({
-        lengthMenu: [50, 100, 200, 500],
-        scrollY: '55vh',
-        scrollCollapse: true,
-        stateSave: true,
-        "bFilter": false,
-
-    });
-  
-
-
-   
 
     $('#selector').on('click', function (e) {
         if ($(this).is(':checked', true)) {
