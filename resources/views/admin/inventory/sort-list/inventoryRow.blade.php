@@ -14,7 +14,7 @@
 
     <td class="align-middle text-center">{{ $item['product']['color_identity'] }}</td>
 
-    <td class="align-middle text-center">{{ $item['product']['type_line'] }}</td>
+    <td  class="align-middle text-center">{{ $item['product']['type_line'] }}</td>
 
     <td class="align-middle text-center">{{ $item['product']['frame_effects'] }}</td>
 
@@ -57,7 +57,7 @@
                     @endforeach
                 </div>
                 <input name="price_each" value="{{ $item['price_each'] }}" type="text"
-                    class="form-control price_input" id="price_input_{{ $item['id'] }}"><span
+                    class="form-control price_input " id="price_input_{{ $item['id'] }}"><span
                     hidden>{{ $item['price_each'] }}</span>
             </div>
         </form>
