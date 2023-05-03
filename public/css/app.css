@@ -9241,3 +9241,12 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
+.components a{
+  color: #000;
+}
+
+.image-size{
+  width: auto;
+  height: 35vh;
+}
