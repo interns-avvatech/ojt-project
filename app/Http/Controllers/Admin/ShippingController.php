@@ -13,13 +13,6 @@ class ShippingController extends Controller
     {
         $checkouts = CheckOut::get()->toArray();
 
-        // foreach ($checkouts as $checkout) {
-        //     $checkout['cart_contents'] = json_decode($checkout['cart_contents'], true);
-        // }
-        // // dd($checkout);
-
-
-
         return view('admin.shipping.shipping', [
             'checkouts' => $checkouts,
         ]);
