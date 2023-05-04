@@ -7,19 +7,19 @@
             <table class="table datatable datatable-column-search-selects table-sm table-hover " id="ojt_flow">
                 <thead class="bg-light table-group-divider table-divider-color">
                     <tr>
-                        <th class="text-center">Selector</th>
-                        <th class="text-center">Thumbnail</th>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Color Identity</th>
-                        <th class="text-center">Type</th>
-                        <th class="text-center">Frame Effects</th>
-                        <th class="text-center">Finish</th>
-                        <th class="text-center">Rarity</th>
-                        <th class="col-1 text-center"><a href="#sort" data-toggle="modal"
+                        <th scope="col"  class="text-center">Selector</th>
+                        <th scope="col" class="text-center">Thumbnail</th>
+                        <th scope="col" class="text-center width-400">Name</th>
+                        <th scope="col" class="text-center width-400">Color Identity</th>
+                        <th scope="col" class="text-center width-400">Type</th>
+                        <th scope="col" class="text-center">Frame Effects</th>
+                        <th scope="col" class="text-center width-400">Finish</th>
+                        <th scope="col" class="text-center width-400">Rarity</th>
+                        <th scope="col" class="col-1 text-center"><a href="#sort" data-toggle="modal"
                                style="text-decoration: none; color:black;">Quantity</a></th>
-                        <th class="text-center">TCG Mid</th>
-                        <th class="text-center">Total</th>
-                        <th class="text-center">Action</th>
+                        <th scope="col" class="text-center width-400">TCG Mid</th>
+                        <th scope="col" class="text-center">Total</th>
+                        <th scope="col" class="text-center">Action</th>
                         @include('admin.inventory.action-popUp.sortQuantity')
                     </tr>
 
@@ -39,12 +39,12 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td class="width-400">Name</td>
-                        <td class="width-100">Color Identity</td>
-                        <td class="width-400">Type</td>
-                        <td class="width-400">Frame Effects</td>
-                        <td class="width-200">Finish</td>
-                        <td class="width-200">Rarity</td>
+                        <td>Name</td>
+                        <td>Color Identity</td>
+                        <td>Type</td>
+                        <td>Frame Effects</td>
+                        <td>Finish</td>
+                        <td>Rarity</td>
                         <td></td>
                         <td></td>
                         <td></td>

@@ -3,15 +3,18 @@
 @section('admin-content')
 
 
-    <div class="row my-4">
         <div class="col-lg-12 col-sm-4">
+
+        <div class="d-flex justify-content-between">
+        <h1 class="my-4 font-weight-semibold">Shipping</h1>
+    </div>
 
             <div class="card card-inverse card-flat border-none p-b-10">
                 <div class="card-block p-b-10">
-                    <div class="card-title text-uppercase float-left p-b-30 p-t-12 font-weight-bold">Activity Logs</div>
-                    <table class="table" id='order-table'>
+                    <table class="table" id='shipping-table'>
                         <thead>
                             <tr>
+                                <th scope="col" style="width:10px"><input type="checkbox" id="selector"></th>
                                 <th scope="col">Order ID</th>
                                 <th scope="col">Sold To</th>
                                 <th scope="col">Shipping Date</th>
@@ -22,6 +25,7 @@
                         <tbody>
                             @foreach ($checkouts as $checkout)
                                 <tr>
+                                    <th style="width:10px"><input class="sub_chk" type="checkbox"></th>
                                     <td>{{$checkout['checkout_id']}}</td>
                                     <td>{{$checkout['sold_to']}}</td>
                                     <td>{{$checkout['created_at']}}</td>
@@ -43,5 +47,4 @@
             </div>
 
         </div>
-    </div>
 @endsection

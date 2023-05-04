@@ -4,7 +4,7 @@
         <div class="card-title text-uppercase float-left text-white">Orders Statistics</div>
         <div class="button-toolbar float-right">
             <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-secondary">Orders</button>
+                <button type="button" class="btn btn-sm btn-light">Orders</button>
                 <button type="button" class="btn btn-sm btn-secondary active">Cancelled</button>
             </div>
         </div>
