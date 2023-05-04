@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 @section('title', 'Inventory')
 @section('admin-content')
-
-
 @php
 // Check if the file is still in JSON format
 function is_valid_json($raw_json)
@@ -20,7 +18,7 @@ print_r($result);
 }
 @endphp
 
-{{--format try--}}
+{{--format try2--}}
 
 <div class="col-lg-12">
     <div class="d-flex justify-content-between align-items-center">
@@ -42,26 +40,9 @@ print_r($result);
                     <button class="dropdown-item" value="all" name="filter" type="submit">Show All</button>
                     <button class="dropdown-item" value="zero" name="filter" type="submit">Zero Quantity</button>
                 </form>
-
             </div>
-            {{-- Error handler for file import --}}
-            @if ($errors->any())
-                <div class="alert alert-danger form-control w-75 mx-auto">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    @foreach ($errors->all() as $error)
-                        <div class="note note-danger mb-3 text-center">
-                            <strong>{{ $error[0] }}:</strong> {{ $error[1] }}
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-            <br>
-
-
-
-
+        </div>
+    </div>
     {{-- Error handler for file import --}}
     @if ($errors->any())
     <div class="alert alert-danger form-control w-75 mx-auto">
@@ -71,15 +52,15 @@ print_r($result);
         @foreach ($errors->all() as $error)
         <div class="note note-danger mb-3 text-center">
             <strong>{{ $error[0] }}:</strong> {{ $error[1] }}
-
         </div>
-
+        @endforeach
+    </div>
+    @endif
     <div class="container-fluid my-4" style="display: grid">
         <div style="justify-self: end; display: flex; gap: 1rem;">
             <div class="form-label">
                 <label style="font-size: 14px;">Selected Entries:</label>
             </div>
-
             <div class="dropdown user-dropdown">
                 <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                     Action
@@ -91,32 +72,19 @@ print_r($result);
             </div>
         </div>
     </div>
-
-
-
-
-
-
     <div class="card card-inverse card-flat border-none">
         <div class="card-block p-b-10">
         @include('admin.inventory.inventoryTable')
         </div>
     </div>
-
-
-
-
 </div>
-
 @endsection
-
 @push('script')
 {{-- custom script --}}
 <script src="{{ asset('js/admin/inventory.js') }}"></script>
 <script>
     $(function() {
         'use strict';
-
         // DataTable setup
         $.extend($.fn.dataTable.defaults, {
             autoWidth: false,
@@ -127,7 +95,6 @@ print_r($result);
             }],
             dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
             language: {
-
                 lengthMenu: '<span>Show:</span> _MENU_',
                 paginate: {
                     'first': 'First',
@@ -136,7 +103,6 @@ print_r($result);
                     'previous': '&larr;'
                 }
             },
-
             lengthMenu: [50, 100, 200, 500],
             displayLength: 50,
             scrollY: '100vh',
@@ -158,7 +124,6 @@ print_r($result);
             // ]
             // stateSave: true,
             // "bFilter": false,
-
         });
         // Individual column searching with selects
         $('#ojt_flow').DataTable({
@@ -166,7 +131,6 @@ print_r($result);
             // searching: false,
             initComplete: function() {
                 this.api().columns([2, 3, 4, 5, 6, 7]).every(function() {
-
                     var column = this;
                     var select = $(
                             '<select class="filter-select" data-placeholder="' + column
@@ -177,12 +141,10 @@ print_r($result);
                             var val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
-
                             column
                                 .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
                         });
-
                     column.data().unique().sort().each(function(d, j) {
                         select.append('<option value="' + d + '">' + d +
                             '</option>')
@@ -190,12 +152,9 @@ print_r($result);
                 });
             }
         });
-
         // Enable Select2 select for individual column searching
         $('.filter-select').select2();
-
         $('.select').select2();
-
     });
 </script>
 @endpush
