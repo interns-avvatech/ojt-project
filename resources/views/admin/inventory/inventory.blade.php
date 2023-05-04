@@ -2,6 +2,7 @@
 @section('title', 'Inventory')
 @section('admin-content')
 
+
 @php
 // Check if the file is still in JSON format
 function is_valid_json($raw_json)
@@ -40,9 +41,22 @@ print_r($result);
                     <button class="dropdown-item" value="all" name="filter" type="submit">Show All</button>
                     <button class="dropdown-item" value="zero" name="filter" type="submit">Zero Quantity</button>
                 </form>
+
             </div>
-        </div>
-    </div>
+            {{-- Error handler for file import --}}
+            @if ($errors->any())
+                <div class="alert alert-danger form-control w-75 mx-auto">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    @foreach ($errors->all() as $error)
+                        <div class="note note-danger mb-3 text-center">
+                            <strong>{{ $error[0] }}:</strong> {{ $error[1] }}
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            <br>
 
 
 
@@ -56,11 +70,8 @@ print_r($result);
         @foreach ($errors->all() as $error)
         <div class="note note-danger mb-3 text-center">
             <strong>{{ $error[0] }}:</strong> {{ $error[1] }}
-        </div>
-        @endforeach
-    </div>
-    @endif
 
+        </div>
 
     <div class="container-fluid my-4" style="display: grid">
         <div style="justify-self: end; display: flex; gap: 1rem;">
@@ -90,6 +101,7 @@ print_r($result);
         @include('admin.inventory.inventoryTable')
         </div>
     </div>
+
 
 
 

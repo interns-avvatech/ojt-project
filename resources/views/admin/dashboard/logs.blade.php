@@ -31,7 +31,7 @@
                     <h6 class="text-alpha-5 float-left m-t-5 m-b-5">Completed orders</h6>
                     <h6 class="text-bold text-alpha-7 float-right m-t-5 m-b-5">240</h6>
                     <div class="clearfix"></div>
-                    <h6 class="text-alpha-5 float-left m-t-5 m-b-5">Abandoned orders</h6>
+                    <h6 class="text-alpha-5 float-left m-t-5 m-b-5">Cancelled orders</h6>
                     <h6 class="text-bold text-alpha-7 float-right m-t-5 m-b-5">3%</h6>
                     <div class="clearfix"></div>
                 </div>
