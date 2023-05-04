@@ -27,22 +27,10 @@
                 </thead>
 
                 <tbody>
+                    {{-- Quantity Sorting --}}
                     @if (is_array($inventories) && count($inventories))
                         @foreach ($inventories as $item)
-                            {{-- Quantity Sorting --}}
-                            @if ($condition == '=' && $item['quantity'] == $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @elseif ($condition == '<' && $item['quantity'] < $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @elseif ($condition == '<=' && $item['quantity'] <= $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @elseif ($condition == '>' && $item['quantity'] > $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @elseif ($condition == '>=' && $item['quantity'] >= $value)
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @else
-                                @include('admin.inventory.sort-list.inventoryRow')
-                            @endif
+                            @include('admin.inventory.sort-list.inventoryRow')
                         @endforeach
                     @endif
 
@@ -68,7 +56,6 @@
             </table>
 
         </div>
-        
     @else
         {{-- <br>
         <div class="container">
