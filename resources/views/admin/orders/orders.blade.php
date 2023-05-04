@@ -35,68 +35,74 @@
 
             <tbody>
 
-                @if ($orders->count())
+                @if (is_array($orders) && count($orders))
                     @foreach ($orders as $order)
-                        <tr id="tr_{{ $order->id }}">
-                            <th><input class="sub_chk" data-id="{{ $order->id }}" type="checkbox"></th>
-                            <td>{{ $order->sold_date }}</td>
-                            <td>{{ $order->sold_to }}</td>
-                            <td>{{ $order->card_name }}</td>
-                            <td>{{ $order->set }}</td>
-                            <td>{{ $order->finish }}</td>
+                        <tr id="tr_{{ $order['id'] }}">
+                            <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
+                            <td>{{ $order['sold_date']  }}</td>
+                            <td>{{ $order['sold_to'] }}</td>
+                            <td>{{ $order['card_name'] }}</td>
+                            <td>{{ $order['set'] }}</td>
+                            <td>{{ $order['finish'] }}</td>
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['tcg_mid'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format($order->tcg_mid, 2, '.', ',') }}
+                                        {{ $currency['symbol'] . number_format($order['tcg_mid'], 2, '.', ',') }}
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $order->qty }}</td>
+                            <td>{{ $order['qty'] }}</td>
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format($order->sold_price, 2, '.', ',') }}
+                                        {{ $currency['symbol'] . number_format($order['sold_price'], 2, '.', ',') }}
                                     @endif
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['ship_cost'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format($order->ship_cost, 2, '.', ',') }}
+                                        {{ $currency['symbol'] . number_format($order['ship_cost'], 2, '.', ',') }}
                                     @endif
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($settings['status'] as $status)
-                                    @if (intval($order->payment_status) === $status['id'])
+                                    @if (intval($order['payment_status']) === $status['id'])
                                         {{ $status['status'] }}
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $order->payment_method }}</td>
-                            <td>{{ $order->note }}</td>
-                            <td>{{ $order->ship_price }}</td>
-                            <td>{{ $order->tcgplacer_id }}</td>
-                            <td>{{ $order->tracking_number }}</td>
-                            <td>{{ $order->multiplier }}</td>
-                            <td>{{ $order->multiplier_price }}</td>
-                            <td>{{ $order->product_id }}</td>
+                            <td>{{ $order['payment_method'] }}</td>
+                            <td>{{ $order['note'] }}</td>
+                            <td>{{ $order['ship_price'] }}</td>
+                            <td>{{ $order['tcgplacer_id'] }}</td>
+                            <td>{{ $order['tracking_number'] }}</td>
+                            <td>{{ $order['multiplier'] }}</td>
+                            <td>{{ $order['multiplier_price'] }}</td>
+                            <td>{{ $order['product_id'] }}</td>
 
 
                             <td class="">
                                 <button type="button" class="btn" data-toggle="modal"
-                                    data-target="{{ '#edit-order' . $order->id }}"><i class='fa fa-pencil'></i></button>
+                                    data-target="{{ '#edit-order' .$order['id'] }}"><i class='fa fa-pencil'></i></button>
                                 @include('admin.orders.order-modals.edit-modal')
 
                                 <button type="button" class="btn" data-toggle="modal"
-                                    data-target="{{ '#order' . $order->id }}"><i class='fa fa-undo'></i></button>
+                                    data-target="{{ '#order' . $order['id'] }}"><i class='fa fa-undo'></i></button>
                                 @include('admin.orders.order-modals.delete-modal')
-
                             </td>
                         </tr>
                     @endforeach
             <tfoot>
                 <th>Total</th>
+
+                <th>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#checkout{{ $order['id']}}"><i
+                            class='fa fa-shopping-bag'></i></button>
+                    @include('admin.orders.order-modals.checkout-modal')
+                </th>
+
                 <td></td>
                 <td></td>
                 <td></td>
@@ -109,7 +115,8 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                
+
+
             </tfoot>
             @endif
 

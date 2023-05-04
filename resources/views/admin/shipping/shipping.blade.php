@@ -3,7 +3,7 @@
 @section('admin-content')
 
 
-<div class="row my-4">
+    <div class="row my-4">
         <div class="col-lg-12 col-sm-4">
 
             <div class="card card-inverse card-flat border-none p-b-10">
@@ -12,25 +12,29 @@
                     <table class="table" id='order-table'>
                         <thead>
                             <tr>
-                                <th scope="col">Event</th>
-                                <th scope="col">Card ID</th>
-                                <th scope="col">Quantity Old</th>
-                                <th scope="col">Quantity New</th>
-                                <th scope="col">Price Old</th>
-                                <th scope="col">Price New</th>
-                                <th scope="col">Date and Time</th>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Sold To</th>
+                                <th scope="col">Shipping Date</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            @foreach ($checkouts as $checkout)
+                                <tr>
+                                    <td>{{$checkout['checkout_id']}}</td>
+                                    <td>{{$checkout['sold_to']}}</td>
+                                    <td>{{$checkout['created_at']}}</td>
+                                    <td>{{$checkout['total']}}</td>
+                                    <td>
+                                        <form action="">
+                                            <button type="button" class="btn" data-toggle="modal"
+                                                data-target="{{ '#view-order' }}"><i class='fa fa-eye'></i></button>
+                                            @include('admin.shipping.shipping-modals.view-modal')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
 
 
                         </tbody>
