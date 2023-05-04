@@ -1,10 +1,18 @@
 @extends('layouts.admin')
 @section('title', 'Settings')
 @section('admin-content')
-    <div class="d-flex h-100">
-        <div class="col-6 mx-auto align-items-center">
-            <h2 class="my-4">Settings</h2>
-            <hr>
+
+<div class="col-lg-12">
+<div class="d-flex justify-content-between">
+        <h1 class="my-4 font-weight-semibold">Settings</h1>
+        <div>
+        <button class="btn btn-small btn-secondary" style="margin-right:20rem; margin-top: 2rem" type="button" data-toggle="modal"
+                                data-target="#addMethod">Add Payment Method</button>
+        </div>
+    </div>
+</div>
+    <div class="d-flex h-100" style="margin: 0 60px 0 60px">
+        <div class="col-md-8 mx-auto align-items-center">
             @include('admin.settings.settings-modal.add-currency')
             @include('admin.settings.settings-modal.add-methods')
             <!-- This is the Form -->
@@ -15,8 +23,7 @@
                         <div class="d-flex justify-content-between">
                             <p><b>Payment Methods </b></p>
 
-                            <button class="btn btn-small btn-outline-secondary" type="button" data-toggle="modal"
-                                data-target="#addMethod">Add</button>
+                            
                         </div>
 
                         <select name="payment_methods" class="form-control mt-1">
@@ -101,8 +108,8 @@
                     <!-- It shows the value of the card/inventory not the currency -->
                     <div class="d-flex justify-content-between">
                         <h5><b>Currency</b></h5>
-                        <button class="btn btn-small btn-outline-secondary" type="button" data-toggle="modal"
-                            data-target="#addCurrency">Add</button>
+                        <button class="btn btn-small btn-secondary" type="button" data-toggle="modal"
+                            data-target="#addCurrency">Add Currency</button>
                     </div>
 
                     <div class="row align-items-start">

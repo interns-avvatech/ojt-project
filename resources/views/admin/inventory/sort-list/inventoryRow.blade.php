@@ -8,17 +8,17 @@
         @endif
     </td>
 
-    <td class="align-middle text-center">{{ $item['product']['name'] }}</td>
+    <td class="align-middle text-center width-400">{{ $item['product']['name'] }}</td>
 
-    <td class="align-middle text-center">{{ $item['product']['color_identity'] }}</td>
+    <td class="align-middle text-center width-400">{{ $item['product']['color_identity'] }}</td>
 
-    <td class="align-middle text-center">{{ $item['product']['type_line'] }}</td>
+    <td class="align-middle text-center width-400">{{ $item['product']['type_line'] }}</td>
 
     <td class="align-middle text-center">{{ $item['product']['frame_effects'] }}</td>
 
-    <td class="align-middle text-center">{{ $item['printing'] }}</td>
+    <td class="align-middle text-center width-400">{{ $item['printing'] }}</td>
 
-    <td class="align-middle text-center">{{ $item['product']['rarity'] }}</td>
+    <td class="align-middle text-center width-400">{{ $item['product']['rarity'] }}</td>
 
     {{-- Increment/Decrement --}}
     <td class="text-center align-middle col-1">
@@ -26,19 +26,19 @@
             <form method="post" action="{{ route('quantity.down', $item['id']) }}" class="disable-form">
                 @method('PUT')
                 @csrf
-                <button type="submit" class="btn btn-secondary btn-sm disable-quantity"><i class="fa fa-minus"></i></button>
+                <button type="submit" class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i class="icon-minus2"></i></button>
             </form>
             <span class="mx-3">{{ $item['quantity'] }}</span>
             <form method="post" action="{{ route('quantity.up', $item['id']) }}" class="disable-form">
                 @method('PUT')
                 @csrf
-                <button type="submit" class="btn btn-secondary btn-sm disable-quantity"><i class="fa fa-plus"></i></button>
+                <button type="submit" class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i class="icon-plus2"></i></button>
             </form>
         </div>
     </td>
 
     {{-- Price (Edit) --}}
-    <td class="col-1 align-middle width-150">
+    <td class="col-1 align-middle width-400">
         <form method="post" action="{{ route('price_each.edit', $item['id']) }}" class="disable-form" id="price_edit_{{ $item['id'] }}">
             @method('PUT')
             @csrf
