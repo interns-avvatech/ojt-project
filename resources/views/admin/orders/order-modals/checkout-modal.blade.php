@@ -11,7 +11,7 @@
                  </button>
              </div>
 
-             <form action="{{ route('checkout-orders') }}" method="post" enctype="multipart/form-data">
+             <form action="{{ route('checkout-orders', $order['id']) }}" method="post" enctype="multipart/form-data">
                  @csrf
                  <div class="modal-body">
                      <div class="row">
