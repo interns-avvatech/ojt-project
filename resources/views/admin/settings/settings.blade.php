@@ -3,7 +3,13 @@
 @section('admin-content')
     <div class="d-flex h-100">
         <div class="col-6 mx-auto align-items-center">
-            <h2 class="my-4">Settings</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="my-4">Settings</h2>
+                <form action="{{route ('locationPh')}}" accept-charset="utf-8" enctype="multipart/form-data" method="POST">
+                @csrf
+                    <button class="btn btn-small btn-outline-secondary">Add Locations</button>
+                </form>
+            </div>
             <hr>
             @include('admin.settings.settings-modal.add-currency')
             @include('admin.settings.settings-modal.add-methods')

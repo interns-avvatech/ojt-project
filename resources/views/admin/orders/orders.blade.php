@@ -123,6 +123,9 @@
 
             </tbody>
         </table>
+        <div class="container mt-5" style="max-width: 500px;">
+            <select class="livesearch form-control" name="livesearch"></select>
+        </div>
     </div>
 @endsection
 

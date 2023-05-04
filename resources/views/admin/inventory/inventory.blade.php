@@ -1,25 +1,6 @@
 @extends('layouts.admin')
 @section('title', 'Inventory')
 @section('admin-content')
-@php
-// Check if the file is still in JSON format
-function is_valid_json($raw_json)
-{
-$decoded = json_decode($raw_json, true);
-if ($decoded == null || is_int($decoded)) {
-return $raw_json;
-} else {
-$result = '';
-foreach ($decoded as $key => $value) {
-$result .= '<br>' . '<b>' . $key . '</b>' . ': ' . $value;
-}
-print_r($result);
-}
-}
-@endphp
-
-{{--format try2--}}
-
 <div class="col-lg-12">
     <div class="d-flex justify-content-between align-items-center">
         <div class="col-md-6">
@@ -77,6 +58,10 @@ print_r($result);
         @include('admin.inventory.inventoryTable')
         </div>
     </div>
+
+
+
+
 </div>
 @endsection
 @push('script')

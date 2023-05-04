@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Setting;
+use App\Jobs\LocationPH;
 use App\Models\Currency;
+use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\PaymentStatus;
-use App\Models\Setting;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Location;
 
 class SettingsController extends Controller
 {
@@ -59,4 +61,25 @@ class SettingsController extends Controller
 
         return redirect()->back();
     }
+
+    //Location
+    public function location()
+    {
+        LocationPH::dispatch();
+
+        return redirect()->route('settings');
+    }
+
+    public function selectSearch(Request $request)
+    {
+    	$location = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $location = Location::select("id", "name")
+            		->where('name', 'LIKE', "%$search%")
+            		->get();
+        }
+        return response()->json($location);
+    }
+
 }

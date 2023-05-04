@@ -89,3 +89,10 @@ Route::middleware(['guest'])->group(function(){
 Route::post('/get-alert', function () {
     return response()->json(['message' => 'success to use ajax'], 200);
 });
+
+
+//Get Location
+Route::post('getLoc', [SettingsController::class, 'location'])->name('locationPh');
+
+// Auto Suggestion
+Route::get('/ajax-autocomplete-search', [SettingsController::class, 'selectSearch']);
