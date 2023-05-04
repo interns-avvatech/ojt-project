@@ -7,17 +7,17 @@
 
 <div class="col-lg-12">
     <div class="d-flex justify-content-between">
-        <h1 class="my-4 font-weight-bold">Dashboard</h1>
+        <h1 class="my-4 font-weight-semibold">Dashboard</h1>
     </div>
 
 
     <div class="row">
         <div class="col-lg-4 col-sm-4">
 
-            <!-- total sales -->
-            <div class="card card-inverse card-flat bg-primary">
-                <div class="card-header">
-                    <h5 class="text-uppercase text-semibold text-alpha-4">Total Sales</h5>
+            <!-- total orders -->
+            <div class="card card-inverse card-flat" style="background-color: #0CC2AA">
+                <div style="padding: .75rem 1.25rem;">
+                    <h5 class="text-uppercase text-semibold text-alpha-4">Total Orders</h5>
                 </div>
                 <div class="card-block">
                     <div class="row m-b-10">
@@ -36,15 +36,15 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <!-- /total sales -->
+            <!-- /total orders -->
 
         </div>
         <div class="col-lg-4 col-sm-4">
 
             <!-- Total orders -->
-            <div class="card card-inverse card-flat bg-warning">
-                <div class="card-header">
-                    <h5 class="text-uppercase text-semibold text-alpha-8">Total Orders</h5>
+            <div class="card card-inverse card-flat" style="background-color: #FCC100 ">
+            <div style="padding: .75rem 1.25rem;">
+                    <h5 class="text-uppercase text-semibold text-alpha-8">Total Sales</h5>
                 </div>
                 <div class="card-block">
                     <div class="row m-b-10">
@@ -69,8 +69,8 @@
         <div class="col-lg-4 col-sm-4">
 
             <!-- total products -->
-            <div class="card card-inverse card-flat bg-info">
-                <div class="card-header">
+            <div class="card card-inverse card-flat" style="background-color: #6887FF">
+                <div style="padding: .75rem 1.25rem;">
                     <h5 class="text-uppercase text-semibold text-alpha-8">Total Products</h5>
                 </div>
                 <div class="card-block">

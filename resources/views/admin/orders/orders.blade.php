@@ -7,8 +7,8 @@
         <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-order') }}">Bulk
             Delete</button>
 
-        <table class="table" id='order-table'>
-            <thead>
+        <table class="table datatable datatable-column-search-selects table-sm table-hover" id='order-table'>
+            <thead class="bg-light table-group-divider table-divider-color">
                 <tr>
                     <th scope="col"><input type="checkbox" id="selector"></th>
                     <th scope="col">Sold Date</th>
