@@ -1,25 +1,25 @@
 {{-- Table --}}
-<div class="container-fluid px-5">
+<div class="container-fluid">
     @if (isset($inventories) && count($inventories) > 0)
-        <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-inventory') }}">Bulk
-            Delete</button>
+        {{--<button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-inventory') }}">Bulk
+            Delete</button>--}}
         <div class="table-responsive-md">
-            <table class="table  datatable datatable-column-search-selects table-sm table-hover " id="ojt_flow">
+            <table class="table datatable datatable-column-search-selects table-sm table-hover " id="ojt_flow">
                 <thead class="bg-light table-group-divider table-divider-color">
-                    <tr class="tr-background">
-                        <th scope="col" class="text-center ">Selector</th>
-                        <th scope="col" class="text-center ">Thumbnail</th>
-                        <th scope="col" class="text-center ">Name</th>
-                        <th scope="col" class="text-center ">Color Identity</th>
-                        <th scope="col" class="text-center">Type</th>
-                        <th scope="col" class="text-center">Frame Effects</th>
-                        <th scope="col" class="text-center">Finish</th>
-                        <th scope="col" class="text-center">Rarity</th>
-                        <th scope="col" class="col-1 text-center"><a href="#sort" data-toggle="modal"
-                                style="text-decoration: none; color:black;">Quantity</a></th>
-                        <th scope="col" class="text-center">TCG Mid</th>
-                        <th scope="col" class="text-center">Total</th>
-                        <th scope="col" class="text-center">Action</th>
+                    <tr>
+                        <th class="text-center">Selector</th>
+                        <th class="text-center">Thumbnail</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Color Identity</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Frame Effects</th>
+                        <th class="text-center">Finish</th>
+                        <th class="text-center">Rarity</th>
+                        <th class="col-1 text-center"><a href="#sort" data-toggle="modal"
+                               style="text-decoration: none; color:black;">Quantity</a></th>
+                        <th class="text-center">TCG Mid</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">Action</th>
                         @include('admin.inventory.action-popUp.sortQuantity')
                     </tr>
 
@@ -92,4 +92,7 @@
             </table>
         </div>
     @endif
+
+
+    
 </div>
