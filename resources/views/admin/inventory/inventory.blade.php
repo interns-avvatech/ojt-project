@@ -19,6 +19,7 @@ print_r($result);
 }
 @endphp
 
+{{--format try--}}
 
 <div class="col-lg-12">
     <div class="d-flex justify-content-between align-items-center">
