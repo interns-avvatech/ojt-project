@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<div id="body-wrapper" class="body-container" >
+
 
 <div id="body-wrapper" class="body-container" >
+
+
+    {{--Sidebar--}}
+    <aside class="fixed-top vh-100" style="width: 250px; background-color: #2E3E4E">
+        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 220px;">
 
 
     {{--Sidebar--}}
@@ -18,6 +25,7 @@
     </aside>
 
 
+
     {{--page content--}}
     <section class="main-container content-wrapper" style="margin-left: 250px">
 
@@ -26,6 +34,10 @@
                 @include('layouts.partials.headbar')
             </header>
 
+
+
+    {{--page content--}}
+    <section class="main-container content-wrapper" style="margin-left: 250px">
 
 
             {{-- main content --}}
@@ -60,7 +72,5 @@
 
 
 @endsection
-
-
 
 
