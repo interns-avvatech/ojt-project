@@ -20,15 +20,18 @@
         {{-- page content --}}
         <section class="main-container content-wrapper" style="margin-left: 250px">
 
-            {{-- header content --}}
-            <header class="main-nav clearfix sticky-top" style="width: calc(100% - 250px);">
-                @include('layouts.partials.headbar')
-            </header>
+        {{--header content--}}
+        <header class="main-nav clearfix sticky-top w-100">
+            @include('layouts.partials.headbar')
+        </header>
 
 
-            {{-- main content --}}
-            <div class="container-fluid page-content" style="margin-top: 80px; margin-bottom: 100px">
-                @yield('admin-content')
+        {{--main content--}}
+        <div class="container-fluid page-content" style="margin-top: 20px;">
+            @yield('admin-content')
+        </div>
+
+    </section>
 
 
 
