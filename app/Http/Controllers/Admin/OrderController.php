@@ -24,8 +24,8 @@ class OrderController extends Controller
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
         $orders = Order::with('product')->get()->toArray();
-  
-     
+
+
         // dd($orders);
         return view('admin.orders.orders', [
             'orders' => $orders, 'settings' => $settings,
@@ -64,18 +64,23 @@ class OrderController extends Controller
         return response()->json(['success' => "Order Deleted."]);
     }
 
-    public function checkout(Request $request)
+    public function checkout(Request $request, $id)
     {
         $orders = Order::with('product')->get()->toArray();
+        // dd($orders);
         // $checkouts = CheckOut::where('checkout_id', $id)->get()->toArray();
         // dd($checkouts);
         // $checkout = json_encode($orders);
+        // // dd($checkout);
         // echo"<pre>";print_r($checkout);die;
-        
-      
+
+        foreach ($orders as $order) {
+            $dataUpload = DataUpload::find($order['product']['id']);
+            $quantity = $dataUpload['quantity'] - $order['qty'];
+            $dataUpload->update(['quantity' => $quantity]);
+        }
 
         $checkoutId = uniqid();
-
         $checkouts = new CheckOut();
         $checkouts->checkout_id = $checkoutId;
         $checkouts->sold_to = $request->name;
@@ -86,21 +91,17 @@ class OrderController extends Controller
         $checkouts->note = $request->note;
 
         $checkouts->total = 0;
-        foreach ($orders as $order){
-            $checkouts->total = floatVal($order['sold_price']) + $checkouts->total ;
+        foreach ($orders as $order) {
+            $checkouts->total = floatVal($order['sold_price']) + $checkouts->total;
         }
-        // $checkouts->card_name = $check['card_name'];
-        // $checkouts->tcgplacer_id = $check['tcgplacer_id'];
-        // $checkouts->tcg_mid = $check['tcg_mid'];
-        // $checkouts->qty = $check['qty'];
-        // $checkouts->total = $check['sold_price'];
-        // $checkouts->payment_status = $check['payment_status'];
         $checkouts->user_id  = Auth::user()->id;
         $checkouts->cart_contents  = json_encode($orders);
         $checkouts->save();
 
-       
-      
+        foreach ($orders as $order) {
+            Order::find($order['id'])->delete();
+        }
+
 
         return redirect()->back();
     }

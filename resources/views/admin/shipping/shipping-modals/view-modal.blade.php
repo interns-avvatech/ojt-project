@@ -16,9 +16,22 @@
                     <p><strong>Date: </strong>{{ $checkout['created_at'] }}</p>
                 </div>
                 <div class="mb-3">
+                    <p><strong>Order ID: </strong>{{ $checkout['checkout_id'] }}</p>
+                </div>
+                <div class="mb-3">
+                    <p><strong>Payment Method: </strong>{{ $checkout['payment_method'] }}</p>
+                </div>
+                <div class="mb-3">
+                    <p><strong>Shipping Address: </strong>{{ $checkout['address'] }}</p>
+                </div>
+                <div class="mb-3">
 
                     @foreach (json_decode($checkout['cart_contents'], true) as $content)
                         <p><strong>Product Name: </strong>{{ $content['card_name'] }}</p>
+                        <p><strong>Product ID: </strong>{{ $content['product']['product_id'] }}</p>
+                        <p><strong>Price: </strong>{{ $content['tcg_mid'] }}</p>
+                        <p><strong>Quantity: </strong>{{ $content['qty'] }}</p>
+                        <p><strong>Total: </strong>{{ $content['sold_price'] }}</p>
                     @endforeach
                     
                 </div>

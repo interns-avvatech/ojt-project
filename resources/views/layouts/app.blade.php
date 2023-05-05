@@ -36,7 +36,7 @@
 
 </head>
 
-<body id="top">
+<body id="top" style="background-color: rgba(221, 227, 227, 0.5);">
 
 
     @yield('content')
