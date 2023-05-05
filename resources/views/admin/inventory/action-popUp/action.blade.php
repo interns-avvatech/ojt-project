@@ -17,8 +17,9 @@
                                 <strong>Name:</strong>
                                 <input required type="text" name="name" class="form-control" placeholder="Name">
                             </div> --}}
+
                             <div class="mb-3">
-                                <strong>Estimated Card Cost:</strong>
+                                <p class="font-weight-bold float-left">Estimated Card Cost:</p>
                                 <div class="mb-3 input-group">
                                     <div class="input-group-text">
                                         @foreach ($settings['currency_option'] as $currency)
@@ -36,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <strong>Multiplied Price:</strong>
+                            <p class="font-weight-bold float-left">Multiplied Price:</p>
                             <div class="mb-3 input-group">
                                 <div class="input-group-text">₱</div>
                                 <input type="text" name="multiplied_price"
@@ -81,7 +82,7 @@
                         <div class="col-md-6">
 
                             <div class="mb-3">
-                                <strong>Quantity</strong>
+                                <p class="font-weight-bold float-left">Quantity:</p>
                                 <input type="number" name="quantity" class="form-control quantity"
                                     placeholder="quantity" value="1" min="1" max="{{ $item['quantity'] }}"
                                     data-row="{{ $item['id'] }}">
@@ -97,7 +98,7 @@
                             </div> --}}
 
                             <div class="mb-3">
-                                <strong>Multiplier:</strong>
+                                <p class="font-weight-bold float-left">Multiplier:</p>
                                 <input type="number" name="multiplier" value="{{ $settings['multiplier_default'] }}"
                                     class="form-control multiplier" min="1" max="60">
                             </div>
@@ -109,8 +110,8 @@
                             </div> --}}
                         </div>
 
-                        <strong>Sold Price:</strong>
-                        <div class="mb-3 input-group">
+                        <p class="font-weight-bold float-left mx-3">Sold Price</p>
+                        <div class="mb-3 input-group mx-3">
                             <div class="input-group-text">
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
