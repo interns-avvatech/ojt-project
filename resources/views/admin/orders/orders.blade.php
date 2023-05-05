@@ -2,7 +2,7 @@
 @section('title', 'Orders')
 @section('admin-content')
     <div class="mx-4">
-        <h1 class="my-4">Cart</h1>
+        <h1 class="my-4">Orders</h1>
 
         <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-order') }}">Bulk
             Delete</button>
@@ -13,7 +13,7 @@
                     <th scope="col"><input type="checkbox" id="selector"></th>
                     <th scope="col">Sold Date</th>
                     <th scope="col">Product Name</th>
-                    
+
                     <th scope="col">Product ID</th>
                     <th scope="col">Finish</th>
                     <th scope="col">Sold Price</th>
@@ -41,20 +41,43 @@
                         <tr id="tr_{{ $order['id'] }}">
                             <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
 
-                            <td>{{ $order['sold_date']  }}</td>
+                            <td>{{ $order['sold_date'] }}</td>
 
                             <td>{{ $order['card_name'] }}</td>
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
-                            
+
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format(floatVal($order['sold_price']), 2, '.', ',') }}
+                                        {{ $currency['symbol'] . $order['sold_price'] }}
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $order['qty'] }}</td>
+
+                            <td class="text-center align-middle col-1">
+                                <div class="btn-group" role="group" aria-label="Quantity">
+                                    <form method="post" action="{{ route('order.down', $order['id']) }}"
+                                        class="disable-form">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit"
+                                            class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i
+                                                class="icon-minus2"></i></button>
+                                    </form>
+                                    <span class="mx-3">{{ $order['qty'] }}</span>
+                                    <form method="post" action="{{ route('order.up', $order['id']) }}"
+                                        class="disable-form">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit"
+                                            class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i
+                                                class="icon-plus2"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+
+
                             <td>{{ $order['sold_to'] }}</td>
                             <td>{{ $order['set'] }}</td>
                             <td>
@@ -64,7 +87,7 @@
                                     @endif
                                 @endforeach
                             </td>
-                            
+
 
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
@@ -83,7 +106,7 @@
                             <td>{{ $order['payment_method'] }}</td>
                             <td>{{ $order['note'] }}</td>
                             <td>{{ $order['ship_price'] }}</td>
-                            
+
                             <td>{{ $order['tracking_number'] }}</td>
                             <td>{{ $order['multiplier'] }}</td>
                             <td>{{ $order['multiplier_price'] }}</td>
@@ -131,6 +154,10 @@
             </tbody>
         </table>
     </div>
+    <h1>Shipping Location Selection</h1>
+
+    <button class="click">click me</button>
+
 @endsection
 
 @push('style')
@@ -183,15 +210,18 @@
                     };
 
                     //columns
+                    //sold price
                     var column6total = api
-                        .column(6)
+                        .column(5)
                         .data()
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);
 
+
+                    //qty
                     var column7total = api
-                        .column(7)
+                        .column(6)
                         .data()
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
@@ -214,19 +244,19 @@
 
 
 
-                    // footer column 6
-                    $(api.column(6).footer()).html(`<b>
+                    // footer column 5
+                    $(api.column(5).footer()).html(`<b>
             <?php
             foreach ($settings['currency_option'] as $currency):
-                if ($settings['tcg_mid'] === $currency['id']):
+                if ($settings['sold_price'] === $currency['id']):
                     echo $currency['symbol'];
                 endif;
             endforeach;
             ?> 
             ${column6total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</b>`);
 
-                    // footer column 7
-                    $(api.column(7).footer()).html(`<b>${column7total}</b>`);
+                    // footer total qty
+                    $(api.column(6).footer()).html(`<b>${column7total}</b>`);
 
                     // footer column 8
                     $(api.column(8).footer()).html(`<b>
@@ -250,6 +280,10 @@
 
 
             });
+
+
+
+          
         })
     </script>
 @endpush
