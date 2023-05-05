@@ -40,7 +40,9 @@
                     @foreach ($orders as $order)
                         <tr id="tr_{{ $order['id'] }}">
                             <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
+
                             <td>{{ $order['sold_date']  }}</td>
+
                             <td>{{ $order['card_name'] }}</td>
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
@@ -90,7 +92,7 @@
 
                             <td style="width:10PX">
                                 <button type="button" class="btn" data-toggle="modal"
-                                    data-target="{{ '#edit-order' .$order['id'] }}"><i class='fa fa-pencil'></i></button>
+                                    data-target="{{ '#edit-order' . $order['id'] }}"><i class='fa fa-pencil'></i></button>
                                 @include('admin.orders.order-modals.edit-modal')
 
                                 <button type="button" class="btn" data-toggle="modal"
@@ -103,7 +105,7 @@
                 <th>Total</th>
 
                 <th>
-                    <button type="button" class="btn" data-toggle="modal" data-target="#checkout{{ $order['id']}}"><i
+                    <button type="button" class="btn" data-toggle="modal" data-target="#checkout{{ $order['id'] }}"><i
                             class='fa fa-shopping-bag'></i></button>
                     @include('admin.orders.order-modals.checkout-modal')
                 </th>
@@ -129,6 +131,10 @@
             </tbody>
         </table>
     </div>
+    <h1>Shipping Location Selection</h1>
+
+    <button class="click">click me</button>
+
 @endsection
 
 @push('style')
@@ -137,7 +143,7 @@
 @push('script')
     {{-- required script --}}
 
-{{-- 
+    {{-- 
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -251,6 +257,10 @@
 
 
             });
+
+
+
+          
         })
     </script>
 @endpush

@@ -24,13 +24,13 @@ use App\Http\Controllers\Admin\ShippingController;
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function (){
+Route::middleware(['auth'])->group(function () {
 
     Route::prefix('admin')->group(function () {
-        
+
         // DASHBOARD ROUTES
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-    
+
         // INVENTORY ROUTES
         Route::get('inventory', [InventoryController::class, 'inventoryTable'])->name('inventoryTable');
         //Filter Inventory Row
@@ -49,14 +49,17 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/delete/{id}', [InventoryController::class, 'delete'])->name('csv.delete');
         //Selected Delete Inventory
         Route::delete('/delete-selected-inventory', [InventoryController::class, 'deleteSelectInventory'])->name('delete-selected-inventory');
-    
+
         // ORDERS ROUTES
         Route::get('orders', [OrderController::class, 'orders'])->name('orders');
         Route::get('/delete-order/{tcgplacer_id}/{id}', [OrderController::class, 'returnOrder'])->name('delete-order');
         Route::post('/edit-order/{id}', [OrderController::class, 'editOrder'])->name('edit-order');
         Route::delete('/delete-selected-order', [OrderController::class, 'deleteSelectOrder'])->name('delete-selected-order');
         Route::post('/checkout/{id}', [OrderController::class, 'checkout'])->name('checkout-orders');
-    
+        Route::get('/get-provinces/{region_code}', [OrderController::class, 'getProvinces']);
+        Route::get('/get-municipalities/{province_code}', [OrderController::class, 'getMunicipalities']);
+        Route::get('/get-barangays/{municipality_code}', [OrderController::class, 'getBarangays']);
+
         // SETTINGS ROUTES
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/add-currency', [SettingsController::class, 'addCurrency'])->name('add-currency');
@@ -65,20 +68,18 @@ Route::middleware(['auth'])->group(function (){
         //shipping
         Route::get('/shipping', [ShippingController::class, 'shipping'])->name('shipping');
     });
-
 });
 
-Route::middleware(['auth', 'user-role:admin'])->group(function(){
-    Route::prefix('admin')->group(function() {
-        
+Route::middleware(['auth', 'user-role:admin'])->group(function () {
+    Route::prefix('admin')->group(function () {
+
         //Admin Panel
         Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
     });
-    
 });
 
 
-Route::middleware(['guest'])->group(function(){
+Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
