@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('multiplier')->nullable();
             $table->string('multiplier_price')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->address();
             $table->timestamps();
         });
     }

@@ -1,5 +1,5 @@
-<div class="my-4 text-center text-white">
-    <h3>BRAND LOGO</h3>
+<div class="text-center text-white" style="margin-bottom: 6rem">
+
 </div>
 
 <div class="left-aside-container" style="overflow: hidden; width: 220px; ">
