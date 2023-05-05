@@ -64,7 +64,34 @@
                              <strong>Address:</strong>
                              <input required type="text" name="address" class="form-control" placeholder="Address">
                          </div>
-                    
+                         <div>
+                             <label for="region">Region:</label>
+                             <select name="region" id="region">
+                                 <option value="">Select Region</option>
+                                 @foreach ($location['regions'] as $region)
+                                     <option value="{{ $region['code'] }}">{{ $region['name'] }}</option>
+                                 @endforeach
+                             </select>
+                         </div>
+                         <div>
+                             <label for="province">Province:</label>
+                             <select name="province" id="province">
+                                 <option value="">Select Province</option>
+                             </select>
+                         </div>
+                         <div>
+                             <label for="municipality">Municipality:</label>
+                             <select name="municipality" id="municipality">
+                                 <option value="">Select Municipality</option>
+                             </select>
+                         </div>
+                         <div>
+                             <label for="barangay">Barangay:</label>
+                             <select name="barangay" id="barangay">
+                                 <option value="">Select Barangay</option>
+                             </select>
+                         </div>
+
                          <div class="mb-3">
                              <strong>Note:</strong>
                              <input type="text" name="note" value="" class="form-control"
@@ -86,3 +113,5 @@
          </div>
      </div>
  </div>
+
+ 

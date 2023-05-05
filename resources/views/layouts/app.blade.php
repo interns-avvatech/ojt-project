@@ -52,7 +52,7 @@
 
 
 
-
+   
 
     {{-- custom js --}}
     @stack('script')
