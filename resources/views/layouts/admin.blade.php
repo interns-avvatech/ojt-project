@@ -31,6 +31,21 @@
             @yield('admin-content')
         </div>
 
+        <div class="container-fluid page-content" style="margin-top: 80px; margin-bottom: 100px">
+                {{-- message code --}}
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+            </div>
+
     </section>
 
 
@@ -38,3 +53,7 @@
 
 
 @endsection
+
+
+
+
