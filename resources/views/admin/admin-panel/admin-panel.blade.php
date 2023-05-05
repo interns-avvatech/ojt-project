@@ -6,10 +6,10 @@
 
 <div class="col-lg-12">
     <div class="d-flex justify-content-between">
-        <h1 class="my-4 font-weight-bold">Admin Panel</h1>
+        <h1 class="my-4 font-weight-semibold">Admin Panel</h1>
         <div>
             <button class="btn btn-success"> Members <span class="badge badge-danger rounded-pill ml-2">0</span></button>
-            <button class="btn btn-warning"> Account Approval <span class="badge badge-danger rounded-pill ml-2">0</span></button>
+            <button class="btn btn-warning"> Create Users <span class="badge badge-danger rounded-pill ml-2">0</span></button>
         </div>
     </div>
 

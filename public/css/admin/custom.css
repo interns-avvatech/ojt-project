@@ -53,7 +53,7 @@ thead select{
     height: 30vh;
     width: auto;
 }
-.dataTables_filter {
+/* .dataTables_filter {
     display: none;
-}
+} */
 

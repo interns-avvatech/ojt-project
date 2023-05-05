@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div id="body-wrapper" class="body-container">
+
 
 
         {{-- Sidebar --}}
@@ -26,11 +28,17 @@
             </header>
 
 
-            {{-- main content --}}
-            <div class="container-fluid page-content" style="margin-top: 80px; margin-bottom: 100px">
-                @yield('admin-content')
+
+        {{--header content--}}
+        <header class="main-nav clearfix sticky-top w-100">
+            @include('layouts.partials.headbar')
+        </header>
 
 
+        {{--main content--}}
+        <div class="container-fluid page-content" style="margin-top: 20px;">
+            @yield('admin-content')
+        </div>
 
             </div>
 
