@@ -9,17 +9,17 @@
     <title>@yield('title')</title>
 
     {{-- required css --}}
-   
+
 
     <link rel="stylesheet" href="{{ asset('css/datatables.bootstrap4.min.css') }}">
 
 
-    
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    
-    
-    {{--from template--}}
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+
+    {{-- from template --}}
     <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -27,7 +27,7 @@
 
 
     <link type="text/css" rel="stylesheet" href="{{ asset('css/admin/icons/weather/weather-icons.min.css') }}">
-	<link type="text/css" rel="stylesheet" href="{{ asset('css/admin/icons/weather/weather-icons-wind.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/admin/icons/weather/weather-icons-wind.min.css') }}">
 
 
     @stack('style')
