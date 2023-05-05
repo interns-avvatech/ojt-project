@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\PaymentStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Services\PSGCApi;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Concerns\ToArray;
 
 class OrderController extends Controller
@@ -24,15 +26,50 @@ class OrderController extends Controller
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
         $orders = Order::with('product')->get()->toArray();
+        $modelWithAddress = collect($orders);
+        // Check if locations data is in cache
+        if (Cache::has('locations')) {
+            $location = Cache::get('locations');
+        } else {
+            // If not in cache, fetch from API and store in cache for 1 day
+            $api = new PSGCApi();
+            $location = $api->getAllLocations();
+            Cache::put('locations', $location, 1440);
+        }
 
+   
+        
+            
+            // dd($location['municipalities']);
 
-        // dd($orders);
-        return view('admin.orders.orders', [
-            'orders' => $orders, 'settings' => $settings,
-        ]);
-
-        // return view('orders')->with(compact('orders'));
+        return view('admin.orders.orders')->with(compact('orders', 'settings', 'location'));
     }
+
+    public function getProvinces($regionCode)
+    {
+       
+        $provinces = collect(Cache::get('locations')['provinces'])
+            ->where('regionCode', $regionCode)
+            ->toArray();
+        return response()->json($provinces);
+    }
+
+    public function getMunicipalities($provinceCode)
+    {
+        $municipalities = collect(Cache::get('locations')['municipalities'])
+            ->where('provinceCode', $provinceCode)
+            ->toArray();
+        return response()->json($municipalities);
+    }
+
+    public function getBarangays($municipalityCode)
+    {
+        $barangays = collect(Cache::get('locations')['barangays'])
+            ->where('municipalityCode', $municipalityCode)
+            ->toArray();
+        return response()->json($barangays);
+    }
+
 
     public function returnOrder($id, $tcgplacer_id)
     {

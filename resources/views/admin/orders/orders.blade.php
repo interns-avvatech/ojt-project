@@ -2,7 +2,7 @@
 @section('title', 'Orders')
 @section('admin-content')
     <div class="mx-4">
-        <h1 class="my-4">Cart</h1>
+        <h1 class="my-4">Orders</h1>
 
         <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-order') }}">Bulk
             Delete</button>
@@ -50,7 +50,7 @@
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format(floatVal($order['sold_price']), 2, '.', ',') }}
+                                        {{ $currency['symbol'] . $order['sold_price'] }}
                                     @endif
                                 @endforeach
                             </td>
@@ -154,6 +154,10 @@
             </tbody>
         </table>
     </div>
+    <h1>Shipping Location Selection</h1>
+
+    <button class="click">click me</button>
+
 @endsection
 
 @push('style')
@@ -206,15 +210,18 @@
                     };
 
                     //columns
+                    //sold price
                     var column6total = api
-                        .column(6)
+                        .column(5)
                         .data()
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);
 
+
+                    //qty
                     var column7total = api
-                        .column(7)
+                        .column(6)
                         .data()
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
@@ -237,19 +244,19 @@
 
 
 
-                    // footer column 6
-                    $(api.column(6).footer()).html(`<b>
+                    // footer column 5
+                    $(api.column(5).footer()).html(`<b>
             <?php
             foreach ($settings['currency_option'] as $currency):
-                if ($settings['tcg_mid'] === $currency['id']):
+                if ($settings['sold_price'] === $currency['id']):
                     echo $currency['symbol'];
                 endif;
             endforeach;
             ?> 
             ${column6total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</b>`);
 
-                    // footer column 7
-                    $(api.column(7).footer()).html(`<b>${column7total}</b>`);
+                    // footer total qty
+                    $(api.column(6).footer()).html(`<b>${column7total}</b>`);
 
                     // footer column 8
                     $(api.column(8).footer()).html(`<b>
@@ -273,6 +280,10 @@
 
 
             });
+
+
+
+          
         })
     </script>
 @endpush
