@@ -2,7 +2,7 @@
 @section('title', 'Orders')
 @section('admin-content')
     <div class="mx-4">
-        <h1 class="my-4">Cart</h1>
+        <h1 class="my-4">Orders</h1>
 
         <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-order') }}">Bulk
             Delete</button>
@@ -40,9 +40,7 @@
                     @foreach ($orders as $order)
                         <tr id="tr_{{ $order['id'] }}">
                             <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
-
                             <td>{{ $order['sold_date']  }}</td>
-
                             <td>{{ $order['card_name'] }}</td>
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
@@ -50,7 +48,7 @@
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format(floatVal($order['sold_price']), 2, '.', ',') }}
+                                        {{ $currency['symbol'] . $order['sold_price'] }}
                                     @endif
                                 @endforeach
                             </td>
@@ -92,7 +90,7 @@
 
                             <td style="width:10PX">
                                 <button type="button" class="btn" data-toggle="modal"
-                                    data-target="{{ '#edit-order' . $order['id'] }}"><i class='fa fa-pencil'></i></button>
+                                    data-target="{{ '#edit-order' .$order['id'] }}"><i class='fa fa-pencil'></i></button>
                                 @include('admin.orders.order-modals.edit-modal')
 
                                 <button type="button" class="btn" data-toggle="modal"
@@ -105,7 +103,7 @@
                 <th>Total</th>
 
                 <th>
-                    <button type="button" class="btn" data-toggle="modal" data-target="#checkout{{ $order['id'] }}"><i
+                    <button type="button" class="btn" data-toggle="modal" data-target="#checkout{{ $order['id']}}"><i
                             class='fa fa-shopping-bag'></i></button>
                     @include('admin.orders.order-modals.checkout-modal')
                 </th>
@@ -139,7 +137,7 @@
 @push('script')
     {{-- required script --}}
 
-    {{-- 
+{{-- 
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -183,15 +181,18 @@
                     };
 
                     //columns
+                    //sold price
                     var column6total = api
-                        .column(6)
+                        .column(5)
                         .data()
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);
 
+
+                    //qty
                     var column7total = api
-                        .column(7)
+                        .column(6)
                         .data()
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
@@ -214,19 +215,19 @@
 
 
 
-                    // footer column 6
-                    $(api.column(6).footer()).html(`<b>
+                    // footer column 5
+                    $(api.column(5).footer()).html(`<b>
             <?php
             foreach ($settings['currency_option'] as $currency):
-                if ($settings['tcg_mid'] === $currency['id']):
+                if ($settings['sold_price'] === $currency['id']):
                     echo $currency['symbol'];
                 endif;
             endforeach;
             ?> 
             ${column6total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</b>`);
 
-                    // footer column 7
-                    $(api.column(7).footer()).html(`<b>${column7total}</b>`);
+                    // footer total qty
+                    $(api.column(6).footer()).html(`<b>${column7total}</b>`);
 
                     // footer column 8
                     $(api.column(8).footer()).html(`<b>
