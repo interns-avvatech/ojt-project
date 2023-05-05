@@ -42,10 +42,9 @@
                             <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
                             <td>{{ $order['sold_date']  }}</td>
                             <td>{{ $order['card_name'] }}</td>
-                            
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
-                            <td>{{ $order['set'] }}</td>
+                            
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
@@ -55,6 +54,7 @@
                             </td>
                             <td>{{ $order['qty'] }}</td>
                             <td>{{ $order['sold_to'] }}</td>
+                            <td>{{ $order['set'] }}</td>
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['tcg_mid'] === $currency['id'])
