@@ -97,10 +97,6 @@
                              <input type="text" name="note" value="" class="form-control"
                                  placeholder="Enter the note">
                          </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 9d8dd03d4688447533df73423f7897338b0c00eb
 
                          <strong>Address:</strong>
                          <input required type="text" name="address" class="form-control" placeholder="Address">
