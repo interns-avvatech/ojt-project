@@ -16,9 +16,9 @@
         <li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('inventoryTable') }}">Inventory</a>
         </li>
-        <li class="my-4 text-center">
+        {{--<li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('orders') }}">Orders</a>
-        </li>
+        </li>--}}
         <li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('shipping') }}">Shipping</a>
         </li>

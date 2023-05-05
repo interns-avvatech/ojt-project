@@ -1,7 +1,8 @@
 <div class="navbar float-right navbar-toggleable-sm">
     <div class="clearfix">
         <ul class="float-right top-icons">
-            <li><a href="#" class="btn-top-search hidden-sm-up"><i class="icon-search4"></i></a></li>
+            <li><a href="{{ route('orders') }}" class="btn-top-search"><i
+                            class='fa fa-shopping-bag'></i></a></li>
 
             <li class="dropdown user-dropdown">
                 <a href="#" class="btn-user dropdown-toggle hidden-xs-down" data-toggle="dropdown"><img src="http://via.placeholder.com/80x80" class="rounded-circle user" alt="" /></a>
