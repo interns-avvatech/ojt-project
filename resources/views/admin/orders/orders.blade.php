@@ -40,12 +40,11 @@
                     @foreach ($orders as $order)
                         <tr id="tr_{{ $order['id'] }}">
                             <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
-<<<<<<< HEAD
-                            <td>{{ $order['sold_date'] }}</td>
-                            <td>{{ $order['sold_to'] }}</td>
-=======
+
+
                             <td>{{ $order['sold_date']  }}</td>
->>>>>>> bbb7edfce7385cb9e13bb37e27be06a96d1e44b9
+
+
                             <td>{{ $order['card_name'] }}</td>
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
