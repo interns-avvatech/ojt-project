@@ -45,6 +45,77 @@ $(function () {
             }
         }
     });
+
+
+      // Get provinces of selected region and populate the province select element
+      $('#region').change(function() {
+        var regionCode = $(this).val();
+
+        if (regionCode) {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                url: '/admin/get-provinces/' + regionCode,
+                type: 'GET',
+
+                success: function(data) {
+                    // alert(JSON.stringify(data,null,2))
+                    // return
+                    $('#province').empty();
+                    $('#municipality').empty();
+                    $('#barangay').empty();
+                    $('#province').append('<option value="">Select Province</option>');
+                    $.each(data, function(key, value) {
+                        $('#province').append('<option value="' + value.code +
+                            '">' + value.name + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // Get municipalities of selected province and populate the municipality select element
+    $('#province').change(function() {
+        var provinceCode = $(this).val();
+        if (provinceCode) {
+            $.ajax({
+                url: '/admin/get-municipalities/' + provinceCode,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#municipality').empty();
+                    $('#barangay').empty();
+                    $('#municipality').append(
+                        '<option value="">Select Municipality</option>');
+                    $.each(data, function(key, value) {
+                        $('#municipality').append('<option value="' + value
+                            .code + '">' + value.name + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // Get barangays of selected municipality and populate the barangay select element
+    $('#municipality').change(function() {
+        var municipalityCode = $(this).val();
+        if (municipalityCode) {
+            $.ajax({
+                url: '/admin/get-barangays/' + municipalityCode,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#barangay').empty();
+                    $('#barangay').append('<option value="">Select Barangay</option>');
+                    $.each(data, function(key, value) {
+                        $('#barangay').append('<option value="' + value.code +
+                            '">' + value.name + '</option>');
+                    });
+                }
+            });
+        }
+    });
 });
 
 $(function () {

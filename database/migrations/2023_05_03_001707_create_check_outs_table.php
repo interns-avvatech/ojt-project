@@ -34,7 +34,7 @@ return new class extends Migration
 
 
             $table->json('cart_contents');
-
+         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             $table->timestamps();

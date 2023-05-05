@@ -13,7 +13,7 @@
                 @include('admin.inventory.action-popUp.upload')
             </div>
             <div class="dropdown user-dropdown">
-                <a class="btn rounded-pill btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                <a class="btn rounded-pill btn-outline-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                     Filter
                 </a>
                 <form action="{{ route('filterInventory') }}" class="dropdown-menu dropdown-menu-right">
@@ -43,7 +43,7 @@
                 <label style="font-size: 14px;">Selected Entries:</label>
             </div>
             <div class="dropdown user-dropdown">
-                <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                <a class="btn btn-sm btn-secondary rounded-pill dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                     Action
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

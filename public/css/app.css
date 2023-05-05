@@ -2288,19 +2288,19 @@ fieldset:disabled a.btn {
 }
 
 .btn-secondary {
-  color: #111;
-  background-color: #fafafa;
-  border-color: #5a6268a4;
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 .btn-secondary:hover {
   color: #fff;
-  background-color: #5a6268;
-  border-color: #545b62;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 .btn-secondary:focus, .btn-secondary.focus {
   color: #fff;
-  background-color: #5a6268;
-  border-color: #545b62;
+  background-color: #6c757d;
+  border-color: #6c757d;
   box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
 }
 .btn-secondary.disabled, .btn-secondary:disabled {
