@@ -60,17 +60,15 @@
                              </div>
                          </div>
 
-                         <div class="mb-3">
-                             <strong>Address:</strong>
-                             <input required type="text" name="address" class="form-control" placeholder="Address">
-                         </div>
-                    
-                         <div class="mb-3">
-                             <strong>Note:</strong>
-                             <input type="text" name="note" value="" class="form-control"
-                                 placeholder="Enter the note">
-                         </div>
 
+                         <strong>Address:</strong>
+                         <input required type="text" name="address" class="form-control" placeholder="Address">
+
+
+
+                         <strong>Note:</strong>
+                         <input type="text" name="note" value="" class="form-control"
+                             placeholder="Enter the note">
 
                      </div>
 
@@ -80,6 +78,7 @@
 
                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                      <button type="submit" class="btn btn-success" id="checkout">Checkout</button>
+
 
                  </div>
              </form>

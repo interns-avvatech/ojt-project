@@ -40,9 +40,9 @@ class OrderController extends Controller
         $return_order = Order::with('product')->where('tcgplacer_id', (int)$tcgplacer_id)->get()->first()->toArray();
 
 
-        DataUpload::where('product_id', $tcgplacer_id)->update([
-            'quantity' =>  (int)($return_order['qty']) + (int)($return_order['product']['quantity'])
-        ]);
+        // DataUpload::where('product_id', $tcgplacer_id)->update([
+        //     'quantity' =>  (int)($return_order['qty']) + (int)($return_order['product']['quantity'])
+        // ]);
 
         Order::where('id', $id)->delete();
 
@@ -77,6 +77,12 @@ class OrderController extends Controller
         foreach ($orders as $order) {
             $dataUpload = DataUpload::find($order['product']['id']);
             $quantity = $dataUpload['quantity'] - $order['qty'];
+
+            if ($quantity < 0){
+
+                return redirect()->back()->with('error', 'There is only '. $order['product']['quantity'] . ' stocks available for the product of '. $order['card_name']);
+            }
+
             $dataUpload->update(['quantity' => $quantity]);
         }
 

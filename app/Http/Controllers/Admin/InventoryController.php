@@ -31,7 +31,7 @@ class InventoryController extends Controller
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
         $inventories = DataUpload::with('product')->where('quantity', '>', 0)->get()->toArray();
-    //   dd($inventories);
+        //   dd($inventories);
 
         return view('admin.inventory.inventory', ['inventories' => $inventories])
             ->with(compact('inventories', 'condition', 'value',  'settings'));
@@ -187,32 +187,44 @@ class InventoryController extends Controller
 
         //SOLD POP UP STORED IN DATA TABLES OF 'Order'
         $csv = DataUpload::with('product')->find($id)->toArray();
+        $order = Order::where('tcgplacer_id', $csv['product_id'])->first();
 
-        // dd($csv);
+
         // DataUpload::find($id)->update([
         //     'quantity' =>  (int)($csv['quantity']) -  (int)$request->quantity
 
         // ]);
 
-        $orders = new Order();
-        $orders->sold_date = Carbon::now()->format('Y/m/d');
-        $orders->sold_to = $request->name;
-        $orders->card_name = $csv['product']['name'];
-        $orders->set = $csv['product']['set_name'];
-        $orders->finish = $csv['printing'];
-        $orders->tcg_mid = $csv['price_each'];
-        $orders->qty = $request->quantity;
-        $orders->sold_price = $request->sold;
-        $orders->ship_cost = $request->ship_cost;
-        $orders->payment_status = $request->payment_status;
-        $orders->payment_method = $request->payment_methods;
-        $orders->tcgplacer_id = $csv['product_id'];
-        $orders->ship_price = $request->ship_price;
-        $orders->multiplier = $request->multiplier;
-        $orders->multiplier_price = $request->multiplied_price;
-        $orders->note = $request->note;
-        $orders->product_id = $csv['id'];
-        $orders->save();
+        if ($order) {
+
+            $order->qty += $request->quantity;
+            $order->sold_price += $request->sold;
+            $order->save();
+            
+        } else {
+
+            $orders = new Order();
+            $orders->sold_date = Carbon::now()->format('Y/m/d');
+            $orders->sold_to = $request->name;
+            $orders->card_name = $csv['product']['name'];
+            $orders->set = $csv['product']['set_name'];
+            $orders->finish = $csv['printing'];
+            $orders->tcg_mid = $csv['price_each'];
+            $orders->qty = $request->quantity;
+            $orders->sold_price = $request->sold;
+            $orders->ship_cost = $request->ship_cost;
+            $orders->payment_status = $request->payment_status;
+            $orders->payment_method = $request->payment_methods;
+            $orders->tcgplacer_id = $csv['product_id'];
+            $orders->ship_price = $request->ship_price;
+            $orders->multiplier = $request->multiplier;
+            $orders->multiplier_price = $request->multiplied_price;
+            $orders->note = $request->note;
+            $orders->product_id = $csv['id'];
+            $orders->save();
+        }
+
+
 
         return redirect()->route('sortQuantity')->with('success', 'Product updated');
     }
