@@ -47,7 +47,7 @@
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['tcg_mid'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format($order['tcg_mid'], 2, '.', ',') }}
+                                        {{ $currency['symbol'] . number_format(floatVal($order['tcg_mid']), 2, '.', ',') }}
                                     @endif
                                 @endforeach
                             </td>
@@ -55,14 +55,14 @@
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format($order['sold_price'], 2, '.', ',') }}
+                                        {{ $currency['symbol'] . number_format(floatVal($order['sold_price']), 2, '.', ',') }}
                                     @endif
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['ship_cost'] === $currency['id'])
-                                        {{ $currency['symbol'] . number_format($order['ship_cost'], 2, '.', ',') }}
+                                        {{ $currency['symbol'] . number_format(floatVal($order['ship_cost']), 2, '.', ',') }}
                                     @endif
                                 @endforeach
                             </td>
