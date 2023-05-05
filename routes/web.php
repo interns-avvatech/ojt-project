@@ -67,6 +67,11 @@ Route::middleware(['auth'])->group(function () {
 
         //shipping
         Route::get('/shipping', [ShippingController::class, 'shipping'])->name('shipping');
+
+         //Decrement Quantity
+         Route::put('/decrementdown/{id}', [OrderController::class, 'down'])->name('order.down');
+         //Increment Quantity
+         Route::put('/incrementup/{id}', [OrderController::class, 'up'])->name('order.up');
     });
 });
 
