@@ -10,14 +10,28 @@
             <div class="modal-body">
 
                 <form action="{{ route('sortQuantity') }}" method="GET">
-                    <label for="">Sort by price:</label>
-                    <input type="text" name="value" id="sortValue">
-                    <button type="submit" name="condition" value="=">=</button>
-                    <button type="submit" name="condition" value="<">&lt;</button>
-                    <button type="submit" name="condition" value="<="><=</button>
-                            <button type="submit" name="condition" value=">">&gt;</button>
-                            <button type="submit" name="condition" value=">=">>=</button>
-                            <button type="submit" name="condition" value="reset">RESET</button>
+                    <div>
+                        <div>
+                            <label for="">Sort by price:</label>
+                        </div>
+                        <div>
+                            <input type="number" name="value" id="sortValue" class="form-control" value="0" required>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div>
+                            <label for="">Select Action: </label>
+                        </div>
+                        <div class="text-center" id="">
+                            <button type="submit" name="condition" value="=" class="btn btn-secondary">=</button>
+                            <button type="submit" name="condition" value="<" class="btn btn-secondary">&lt;</button>
+                            <button type="submit" name="condition" value="<=" class="btn btn-secondary">&le;</button>
+                            <button type="submit" name="condition" value=">" class="btn btn-secondary">&gt;</button>
+                            <button type="submit" name="condition" value=">=" class="btn btn-secondary">&ge;</button>
+                            <button type="submit" name="condition" value="reset" class="btn btn-secondary">RESET</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

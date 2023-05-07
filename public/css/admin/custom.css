@@ -2,6 +2,9 @@ body {
     font-family: "Nunito", sans-serif;
 }
 
+.width-400 {
+    width: 400px;
+}
 .width-200 {
     width: 200px;
 }
@@ -50,3 +53,7 @@ thead select{
     height: 30vh;
     width: auto;
 }
+/* .dataTables_filter {
+    display: none;
+} */
+

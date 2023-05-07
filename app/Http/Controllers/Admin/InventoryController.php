@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Imports\DataUploadImport;
+use App\Jobs\LocationPH;
 use App\Jobs\ProcessCsvImport;
 use App\Models\Currency;
 use App\Models\DataUpload;
@@ -30,7 +31,7 @@ class InventoryController extends Controller
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
 
         $inventories = DataUpload::with('product')->where('quantity', '>', 0)->get()->toArray();
-    //   dd($inventories);
+        //   dd($inventories);
 
         return view('admin.inventory.inventory', ['inventories' => $inventories])
             ->with(compact('inventories', 'condition', 'value',  'settings'));
@@ -75,33 +76,38 @@ class InventoryController extends Controller
         $settings['method'] =  PaymentMethod::get()->toArray();
         $settings['status'] =  PaymentStatus::get()->toArray();
         $settings['currency_option'] =  Currency::get(['id', 'currency_name', 'symbol'])->toArray();
-   
+
         switch ($condition) {
             case '=':
-                $query->where('quantity', $value);
-                break;
+                $query->where('quantity', '=', $value);
+                $inventories = DataUpload::with('product')->where('quantity', '=', $value)->get()->toArray();
+                return view('admin.inventory.inventory', ['inventories' => $inventories])
+                    ->with(compact('inventories', 'condition', 'value', 'settings'));
             case '<':
                 $query->where('quantity', '<', $value);
-                break;
+                $inventories = DataUpload::with('product')->where('quantity', '<', $value)->get()->toArray();
+                return view('admin.inventory.inventory', ['inventories' => $inventories])
+                    ->with(compact('inventories', 'condition', 'value', 'settings'));
             case '<=':
                 $query->where('quantity', '<=', $value);
-                break;
+                $inventories = DataUpload::with('product')->where('quantity', '<=', $value)->get()->toArray();
+                return view('admin.inventory.inventory', ['inventories' => $inventories])
+                    ->with(compact('inventories', 'condition', 'value', 'settings'));
             case '>':
                 $query->where('quantity', '>', $value);
-                break;
+                $inventories = DataUpload::with('product')->where('quantity', '>', $value)->get()->toArray();
+                return view('admin.inventory.inventory', ['inventories' => $inventories])
+                    ->with(compact('inventories', 'condition', 'value', 'settings'));
             case '>=':
                 $query->where('quantity', '>=', $value);
-                break;
+                $inventories = DataUpload::with('product')->where('quantity', '>=', $value)->get()->toArray();
+                return view('admin.inventory.inventory', ['inventories' => $inventories])
+                    ->with(compact('inventories', 'condition', 'value', 'settings'));
             default:
-                // handle invalid condition
-                break;
+                $inventories = DataUpload::with('product')->where('quantity', '>', 0)->get()->toArray();
+                return view('admin.inventory.inventory', ['inventories' => $inventories])
+                    ->with(compact('inventories', 'condition', 'value',  'settings'));
         }
-     
-
-        $inventories = DataUpload::with('product', 'log')->get()->toArray();
-        // dd($inventories);
-        return view('admin.inventory.inventory')
-            ->with(compact('inventories', 'condition', 'value', 'settings'));
     }
 
     //Import CSV
@@ -117,7 +123,6 @@ class InventoryController extends Controller
 
         $path = $request->file('file')->getRealPath();
         $data = Excel::toArray(new DataUploadImport, $path)[0];
-        // dd($data);
 
         ProcessCsvImport::dispatch($data);
 
@@ -138,22 +143,22 @@ class InventoryController extends Controller
         } else {
             return redirect()->back();
         }
-    } 
+    }
 
-     //Decrement QTY
-     public function down(Request $request, $id)
-     {
-         $csvOutput = DataUpload::find($id);
- 
-         if ($csvOutput) {
-             if ($csvOutput->quantity <= 0) {
-                 $csvOutput->quantity = 0;
-             } else {
-                 $csvOutput->decrement('quantity', 1);
-             }
-         }
-         return redirect()->back();
-     }
+    //Decrement QTY
+    public function down(Request $request, $id)
+    {
+        $csvOutput = DataUpload::find($id);
+
+        if ($csvOutput) {
+            if ($csvOutput->quantity <= 0) {
+                $csvOutput->quantity = 0;
+            } else {
+                $csvOutput->decrement('quantity', 1);
+            }
+        }
+        return redirect()->back();
+    }
 
     //Edit Price
     public function edit(Request $request, $id)
@@ -174,7 +179,7 @@ class InventoryController extends Controller
     }
 
 
-    
+
 
     //Sold
     public function sold(Request $request, $id)
@@ -182,32 +187,48 @@ class InventoryController extends Controller
 
         //SOLD POP UP STORED IN DATA TABLES OF 'Order'
         $csv = DataUpload::with('product')->find($id)->toArray();
+        $order = Order::where('tcgplacer_id', $csv['product_id'])->first();
 
-        // dd($csv);
+
         // DataUpload::find($id)->update([
         //     'quantity' =>  (int)($csv['quantity']) -  (int)$request->quantity
 
         // ]);
 
-        $orders = new Order();
-        $orders->sold_date = Carbon::now()->format('Y/m/d');
-        $orders->sold_to = $request->name;
-        $orders->card_name = $csv['product']['name'];
-        $orders->set = $csv['product']['set_name'];
-        $orders->finish = $csv['printing'];
-        $orders->tcg_mid = $csv['price_each'];
-        $orders->qty = $request->quantity;
-        $orders->sold_price = $request->sold;
-        $orders->ship_cost = $request->ship_cost;
-        $orders->payment_status = $request->payment_status;
-        $orders->payment_method = $request->payment_methods;
-        $orders->tcgplacer_id = $csv['product_id'];
-        $orders->ship_price = $request->ship_price;
-        $orders->multiplier = $request->multiplier;
-        $orders->multiplier_price = $request->multiplied_price;
-        $orders->note = $request->note;
-        $orders->product_id = $csv['id'];
-        $orders->save();
+        if ($order) {
+
+            if (is_numeric($request->quantity)) {
+                $order->qty += $request->quantity;
+            }
+            if (is_numeric($request->sold)) {
+                $order->sold_price += $request->sold;
+            }
+            $order->save();
+            
+        } else {
+
+            $orders = new Order();
+            $orders->sold_date = Carbon::now()->format('Y/m/d');
+            $orders->sold_to = $request->name;
+            $orders->card_name = $csv['product']['name'];
+            $orders->set = $csv['product']['set_name'];
+            $orders->finish = $csv['printing'];
+            $orders->tcg_mid = $csv['price_each'];
+            $orders->qty = $request->quantity;
+            $orders->sold_price = $request->sold;
+            $orders->ship_cost = $request->ship_cost;
+            $orders->payment_status = $request->payment_status;
+            $orders->payment_method = $request->payment_methods;
+            $orders->tcgplacer_id = $csv['product_id'];
+            $orders->ship_price = $request->ship_price;
+            $orders->multiplier = $request->multiplier;
+            $orders->multiplier_price = $request->multiplied_price;
+            $orders->note = $request->note;
+            $orders->product_id = $csv['id'];
+            $orders->save();
+        }
+
+
 
         return redirect()->route('sortQuantity')->with('success', 'Product updated');
     }
@@ -220,7 +241,7 @@ class InventoryController extends Controller
 
         return redirect()->back()->with('sucess', 'Product deleted');
     }
-    
+
     //Delete Selected Row
     public function deleteSelectInventory(Request $request)
     {
@@ -228,7 +249,7 @@ class InventoryController extends Controller
         $ids = $request->ids;
         $csv =  DataUpload::whereIn('id', explode(",", $ids));
         $csv->delete();
-    
+
         return response()->json(['success' => "Order Deleted."]);
     }
 }

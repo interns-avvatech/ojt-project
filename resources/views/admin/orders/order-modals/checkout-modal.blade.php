@@ -11,7 +11,7 @@
                  </button>
              </div>
 
-             <form action="{{ route('checkout-orders') }}" method="post" enctype="multipart/form-data">
+             <form action="{{ route('checkout-orders', $order['id']) }}" method="post" enctype="multipart/form-data">
                  @csrf
                  <div class="modal-body">
                      <div class="row">
@@ -60,17 +60,55 @@
                              </div>
                          </div>
 
+
                          <div class="mb-3">
                              <strong>Address:</strong>
                              <input required type="text" name="address" class="form-control" placeholder="Address">
                          </div>
-                    
+                         <div>
+                             <label for="region">Region:</label>
+                             <select name="region" id="region">
+                                 <option value="">Select Region</option>
+                                 @foreach ($location['regions'] as $region)
+                                     <option value="{{ $region['code'] }}">{{ $region['name'] }}</option>
+                                 @endforeach
+                             </select>
+                         </div>
+                         <div>
+                             <label for="province">Province:</label>
+                             <select name="province" id="province">
+                                 <option value="">Select Province</option>
+                             </select>
+                         </div>
+                         <div>
+                             <label for="municipality">Municipality:</label>
+                             <select name="municipality" id="municipality">
+                                 <option value="">Select Municipality</option>
+                             </select>
+                         </div>
+                         <div>
+                             <label for="barangay">Barangay:</label>
+                             <select name="barangay" id="barangay">
+                                 <option value="">Select Barangay</option>
+                             </select>
+                         </div>
+
                          <div class="mb-3">
                              <strong>Note:</strong>
                              <input type="text" name="note" value="" class="form-control"
                                  placeholder="Enter the note">
                          </div>
 
+
+                         <strong>Address:</strong>
+                         <input required type="text" name="address" class="form-control" placeholder="Address">
+
+
+
+
+                         <strong>Note:</strong>
+                         <input type="text" name="note" value="" class="form-control"
+                             placeholder="Enter the note">
 
                      </div>
 
@@ -81,8 +119,11 @@
                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                      <button type="submit" class="btn btn-success" id="checkout">Checkout</button>
 
+
                  </div>
              </form>
          </div>
      </div>
  </div>
+
+ 

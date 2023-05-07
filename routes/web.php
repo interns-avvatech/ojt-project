@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SettingsController;
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\CheckoutController;
+use App\Http\Controllers\Admin\ShippingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +25,13 @@ use App\Http\Controllers\Admin\CheckoutController;
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function (){
+Route::middleware(['auth'])->group(function () {
 
     Route::prefix('admin')->group(function () {
-        
+
         // DASHBOARD ROUTES
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-    
+
         // INVENTORY ROUTES
         Route::get('inventory', [InventoryController::class, 'inventoryTable'])->name('inventoryTable');
         //Filter Inventory Row
@@ -48,7 +50,7 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/delete/{id}', [InventoryController::class, 'delete'])->name('csv.delete');
         //Selected Delete Inventory
         Route::delete('/delete-selected-inventory', [InventoryController::class, 'deleteSelectInventory'])->name('delete-selected-inventory');
-    
+
         // ORDERS ROUTES
         Route::get('orders', [OrderController::class, 'orders'])->name('orders');
         Route::get('/delete-order/{tcgplacer_id}/{id}', [OrderController::class, 'returnOrder'])->name('delete-order');
@@ -65,21 +67,33 @@ Route::middleware(['auth'])->group(function (){
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/add-currency', [SettingsController::class, 'addCurrency'])->name('add-currency');
         Route::post('/add-method', [SettingsController::class, 'addMethod'])->name('add-method');
+
+        //shipping
+        Route::get('/shipping', [ShippingController::class, 'shipping'])->name('shipping');
+
+         //Decrement Quantity
+         Route::put('/decrementdown/{id}', [OrderController::class, 'down'])->name('order.down');
+         //Increment Quantity
+         Route::put('/incrementup/{id}', [OrderController::class, 'up'])->name('order.up');
     });
-
 });
 
-Route::middleware(['auth', 'user-role:admin'])->group(function(){
-    //Admin Panel
-    Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
+Route::middleware(['auth', 'user-role:admin'])->group(function () {
+    Route::prefix('admin')->group(function () {
+
+        //Admin Panel
+        Route::get('admin-panel', [AdminPanelController::class, 'adminPanel'])->name('adminPanel');
+    });
 });
 
 
-
-
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 });
+
+
 
 Route::post('/get-alert', function () {
     return response()->json(['message' => 'success to use ajax'], 200);

@@ -25,10 +25,10 @@ class ProcessCsvImport implements ShouldQueue
         $this->data = $data;
     }
 
-  
+
     public function handle()
     {
-       
+
         ini_set('max_execution_time', 1000);
 
         $dataIds = collect($this->data)->pluck('product_id')->toArray();
@@ -39,7 +39,7 @@ class ProcessCsvImport implements ShouldQueue
         $processedCount = 0;
         $startTime = now();
 
-    
+
         foreach ($batches as $batch) {
             $dataIds = $batch->pluck('product_id')->toArray();
 
@@ -62,10 +62,10 @@ class ProcessCsvImport implements ShouldQueue
                     'scryfall_uri' => isset($data['scryfall_uri']) ? $data['scryfall_uri'] : null,
                     'layout' => isset($data['layout']) ? $data['layout'] : null,
                     'highres_image' => isset($data['highres_image']) ? $data['highres_image'] : false,
-                    'image_status' => isset($data['image_status']) ? $data['image_status'] : null,
+                    'image_status' => isset($data['image_status']) ? str_replace('_', ' ', $data['image_status']) : null,
                     'art_crop' => isset($data['image_uris']) ?  $data['image_uris']['art_crop'] : null,
                     'normal' => isset($data['image_uris']) ? $data['image_uris']['normal'] : null,
-                    'mana_cost' => isset($data['mana_cost']) ? $data['mana_cost'] : null,
+                    'mana_cost' => isset($data['mana_cost']) ? str_replace(['{', '}'], '', $data['mana_cost']) : null,
                     'cmc' => isset($data['cmc']) ? $data['cmc'] : null,
                     'type_line' => isset($data['type_line']) ? $data['type_line'] : null,
                     'oracle_text' => isset($data['oracle_text']) ? $data['oracle_text'] : null,
@@ -87,7 +87,7 @@ class ProcessCsvImport implements ShouldQueue
                     'set_id' => isset($data['set_id']) ? $data['set_id'] : null,
                     'set' => isset($data['set']) ? $data['set'] : null,
                     'set_name' => isset($data['set_name']) ? $data['set_name'] : null,
-                    'set_type' => isset($data['set_type']) ? $data['set_type'] : null,
+                    'set_type' => isset($data['set_type']) ? str_replace('_', '', $data['set_type']) : null,
                     'set_uri' => isset($data['set_uri']) ? $data['set_uri'] : null,
                     'set_search_uri' => isset($data['set_search_uri']) ? $data['set_search_uri'] : null,
                     'scryfall_set_uri' => isset($data['scryfall_set_uri']) ? $data['scryfall_set_uri'] : null,
@@ -117,17 +117,16 @@ class ProcessCsvImport implements ShouldQueue
 
 
                 ];
-           
             })->toArray();
 
-           $newBatch =  collect($batch)->map(function ($item) {
+            $newBatch =  collect($batch)->map(function ($item) {
                 $item['price_each'] = str_replace('$', '', $item['price_each']);
                 $item['quantity'] = (int)$item['quantity'];
                 return $item;
             })->toArray();
 
-            DataUpload::upsert($newBatch, ['product_id','printing'], ['product_id','quantity' => DB::raw('quantity + VALUES(quantity)'), 'price_each', 'printing'], );
-            Product::upsert($apiData, ['tcgplayer_id','foil'], [
+            DataUpload::upsert($newBatch, ['product_id', 'printing'], ['product_id', 'quantity' => DB::raw('quantity + VALUES(quantity)'), 'price_each', 'printing'],);
+            Product::upsert($apiData, ['tcgplayer_id', 'foil'], [
                 'object',
                 'object_id',
                 'oracle_id',
