@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\AdminPanelController;
+use App\Http\Controllers\Admin\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,12 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/delete-order/{tcgplacer_id}/{id}', [OrderController::class, 'returnOrder'])->name('delete-order');
         Route::post('/edit-order/{id}', [OrderController::class, 'editOrder'])->name('edit-order');
         Route::delete('/delete-selected-order', [OrderController::class, 'deleteSelectOrder'])->name('delete-selected-order');
-        Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout-orders');
+        //comment muna saglit. lipat q lang sa checkout na controller
+        // Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout-orders');
+
+
+        //checkout routes
+        Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout-orders');
     
         // SETTINGS ROUTES
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
