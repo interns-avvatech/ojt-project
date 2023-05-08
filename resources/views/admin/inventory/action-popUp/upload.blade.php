@@ -41,15 +41,18 @@
                             xhr: function() {
                                 var xhr = $.ajaxSettings.xhr();
                                 xhr.upload.onprogress = function(e) {
-                                    var percentage = Math.floor((e.loaded / e.total) * 100);
-                                    $('.progress-bar').css('width', percentage + '%').text(percentage + '%');
+                                    if (e.lengthComputable) {
+                                        var percentage = Math.floor((e.loaded / e.total) * 60);
+                                        $('.progress-bar').css('width', percentage + '%').text(percentage + '%');
+                                    }
                                 };
                                 return xhr;
                             },
                             beforeSend: function() {
                                 $('#submit').addClass('disable').prop('disabled', true);
                                 $('#loading').removeAttr('hidden');
-                                $('.progress-bar').removeClass('progress-bar-striped bg-info').addClass('progress-bar-striped bg-success');
+                                $('.progress-bar').removeClass('progress-bar-striped bg-info').addClass(
+                                    'progress-bar-striped bg-success');
                             },
                             success: function(response) {
                                 // Handle successful upload
@@ -61,10 +64,11 @@
                                 console.log(xhr.responseText);
                             },
                             complete: function() {
-                                $('#submit').removeClass('disable').prop('disabled', false);
-                                $('#loading').attr('hidden', 'hidden');
                                 $('.progress-bar').removeClass('progress-bar-striped bg-success').addClass(
                                     'progress-bar-striped bg-info');
+                                $('.progress-bar').css('width', '100%').text('100%');
+                                $('#submit').removeClass('disable').prop('disabled', false);
+                                $('#loading').attr('hidden', 'hidden');
                             }
                         });
                     }
