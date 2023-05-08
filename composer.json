@@ -15,6 +15,7 @@
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "2.0",
         "spatie/laravel-activitylog": "^4.7",
+        "xendit/xendit-php": "^2.19",
         "yajra/laravel-address": "^0.7.0"
     },
     "require-dev": {

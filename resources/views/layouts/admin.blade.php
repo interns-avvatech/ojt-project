@@ -11,11 +11,6 @@
     <aside class="fixed-top vh-100" style="width: 250px; background-color: #2E3E4E">
         <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 220px;">
 
-
-    {{--Sidebar--}}
-    <aside class="fixed-top vh-100" style="width: 250px; background-color: #2E3E4E">
-        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 220px;">
-
             @include('layouts.partials.sidebar')
 
             {{--<div class="slimScrollBar" style="background: rgb(204, 204, 204); width: 8px; position: absolute; top: 0px; opacity: 0.3; display: none; border-radius: 3px; z-index: 99; right: 0px; height: 752px;">
@@ -34,10 +29,6 @@
                 @include('layouts.partials.headbar')
             </header>
 
-
-
-    {{--page content--}}
-    <section class="main-container content-wrapper" style="margin-left: 250px">
 
 
             {{-- main content --}}
