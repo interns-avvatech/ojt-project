@@ -17,6 +17,8 @@ class CheckoutController extends Controller
         // dd($orders[0]['set']);
         // dd($request->all());
 
+        $successRedirectUrl = route('shipping');
+
         $data = '{
             "id": "579c8d61f23fa4ca35e52da4",
             "user_id": "5781d19b2e2385880609791c",
@@ -24,7 +26,7 @@ class CheckoutController extends Controller
             "status": "PENDING",
             "merchant_name": "Xendit",
             "merchant_profile_picture_url": "https://xnd-companies.s3.amazonaws.com/prod/1493610897264_473.png",
-            "amount": 220000,
+            "amount": 200,
             "payer_email": "wildan@xendit.co",
             "description": "This is a description",
             "invoice_url": "https://invoice.xendit.co/web/invoices/595b6248c763ac05592e3eb4",
@@ -98,7 +100,7 @@ class CheckoutController extends Controller
             "fees": [
                 {
                     "type": "ADMIN",
-                    "value": 20000
+                    "value": 200
                 }
             ]
         }';
@@ -118,12 +120,19 @@ class CheckoutController extends Controller
         $shipCost = $request['ship_cost'];
 
 
+        $arrdata = json_decode($data, true);
+        $arrdata['success_redirect_url'] = $successRedirectUrl;
         //create payment request
-        $response = $client->post('https://api.xendit.co/v2/invoices', ['json'=> json_decode($data, true)]);
+        $response = $client->post('https://api.xendit.co/v2/invoices', ['json'=> $arrdata]);
 
         // Get the invoice URL from the response
         $invoice = json_decode($response->getBody(), true);
 
         return redirect($invoice['invoice_url']);
+    }
+
+
+    public function showCart(){
+        return view('admin.cart.cart');
     }
 }
