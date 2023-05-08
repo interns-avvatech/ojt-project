@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Inventory')
 @section('admin-content')
+
     @php
         // Check if the file is still in JSON format
         function is_valid_json($raw_json)
@@ -82,6 +83,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @push('script')
     {{-- custom script --}}

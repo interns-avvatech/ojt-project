@@ -13,16 +13,14 @@
         </div>
     </div>
 
-
-
-
-
     <div class="card card-inverse card-flat border-none">
         <div class="card-block p-b-10">
             <p>Welcome, {{ Auth::user()->name }}!</p>
             <br>
         </div>
     </div>
+
 </div>
+
 
 @endsection

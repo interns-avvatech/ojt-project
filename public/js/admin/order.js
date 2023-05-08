@@ -114,3 +114,25 @@ $(function () {
         }
     });
 });
+
+$(function () {
+    $('.livesearch').select2({
+        placeholder: 'Select Location',
+        ajax: {
+            url: '/ajax-autocomplete-search',
+            dataType: 'json',
+            //delay: 150,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+});
