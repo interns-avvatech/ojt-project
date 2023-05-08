@@ -37,10 +37,10 @@ class OrderController extends Controller
             Cache::put('locations', $location, 1440);
         }
 
-   
         
             
             // dd($location['municipalities']);
+   
 
         return view('admin.orders.orders')->with(compact('orders', 'settings', 'location'));
     }
