@@ -63,36 +63,37 @@
                          <div class="mb-3">
                              <strong>Address:</strong>
                              <input required type="text" name="address" class="form-control" placeholder="Address">
-                         </div>
 
-                         {{-- ADDRESS API --}}
-                         <div>
+
+                             {{-- ADDRESS API --}}
                              <div>
-                                 <label for="region">Region:</label>
-                                 <select name="region" id="region">
-                                     <option>Select Region</option>
-                                     @foreach ($location['regions'] as $region)
-                                         <option value="{{ $region['code'] }}">{{ $region['name'] }}</option>
-                                     @endforeach
-                                 </select>
-                             </div>
-                             <div>
-                                 <label for="province">Province:</label>
-                                 <select name="province" id="province">
-                                     <option>Select Province</option>
-                                 </select>
-                             </div>
-                             <div>
-                                 <label for="municipality">Municipality:</label>
-                                 <select name="municipality" id="municipality">
-                                     <option>Select Municipality</option>
-                                 </select>
-                             </div>
-                             <div>
-                                 <label for="barangay">Barangay:</label>
-                                 <select name="barangay" id="barangay">
-                                     <option>Select Barangay</option>
-                                 </select>
+                                 <div>
+                                     <label for="region">Region:</label>
+                                     <select name="region" id="region">
+                                         <option>Select Region</option>
+                                         @foreach ($location['regions'] as $region)
+                                             <option value="{{ $region['code'] }}">{{ $region['name'] }}</option>
+                                         @endforeach
+                                     </select>
+                                 </div>
+                                 <div>
+                                     <label for="province">Province:</label>
+                                     <select name="province" id="province">
+                                         <option>Select Province</option>
+                                     </select>
+                                 </div>
+                                 <div>
+                                     <label for="municipality">Municipality:</label>
+                                     <select name="municipality" id="municipality">
+                                         <option>Select Municipality</option>
+                                     </select>
+                                 </div>
+                                 <div>
+                                     <label for="barangay">Barangay:</label>
+                                     <select name="barangay" id="barangay">
+                                         <option>Select Barangay</option>
+                                     </select>
+                                 </div>
                              </div>
                          </div>
                          <div class="mb-3">
@@ -101,15 +102,7 @@
                                  placeholder="Enter the note">
                          </div>
 
-                         <strong>Address:</strong>
-                         <input required type="text" name="address" class="form-control" placeholder="Address">
-
-
-
-
-                         <strong>Note:</strong>
-                         <input type="text" name="note" value="" class="form-control"
-                             placeholder="Enter the note">
+                     
 
                      </div>
 
