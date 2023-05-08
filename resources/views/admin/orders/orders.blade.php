@@ -13,7 +13,7 @@
                     <th scope="col"><input type="checkbox" id="selector"></th>
                     <th scope="col">Sold Date</th>
                     <th scope="col">Product Name</th>
-                    
+
                     <th scope="col">Product ID</th>
                     <th scope="col">Finish</th>
                     <th scope="col">Sold Price</th>
@@ -41,14 +41,13 @@
                         <tr id="tr_{{ $order['id'] }}">
                             <th><input class="sub_chk" data-id="{{ $order['id'] }}" type="checkbox"></th>
 
-
-                            <td>{{ $order['sold_date']  }}</td>
+                            <td>{{ $order['sold_date'] }}</td>
 
 
                             <td>{{ $order['card_name'] }}</td>
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
-                            
+
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
                                     @if ($settings['sold_price'] === $currency['id'])
@@ -56,7 +55,30 @@
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $order['qty'] }}</td>
+
+                            <td class="text-center align-middle col-1">
+                                <div class="btn-group" role="group" aria-label="Quantity">
+                                    <form method="post" action="{{ route('order.down', $order['id']) }}"
+                                        class="disable-form">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit"
+                                            class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i
+                                                class="icon-minus2"></i></button>
+                                    </form>
+                                    <span class="mx-3">{{ $order['qty'] }}</span>
+                                    <form method="post" action="{{ route('order.up', $order['id']) }}"
+                                        class="disable-form">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit"
+                                            class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i
+                                                class="icon-plus2"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+
+
                             <td>{{ $order['sold_to'] }}</td>
                             <td>{{ $order['set'] }}</td>
                             <td>
@@ -66,7 +88,7 @@
                                     @endif
                                 @endforeach
                             </td>
-                            
+
 
                             <td>
                                 @foreach ($settings['currency_option'] as $currency)
@@ -85,7 +107,7 @@
                             <td>{{ $order['payment_method'] }}</td>
                             <td>{{ $order['note'] }}</td>
                             <td>{{ $order['ship_price'] }}</td>
-                            
+
                             <td>{{ $order['tracking_number'] }}</td>
                             <td>{{ $order['multiplier'] }}</td>
                             <td>{{ $order['multiplier_price'] }}</td>

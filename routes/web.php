@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\AdminPanelController;
+use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\ShippingController;
 
 /*
@@ -55,11 +56,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/delete-order/{tcgplacer_id}/{id}', [OrderController::class, 'returnOrder'])->name('delete-order');
         Route::post('/edit-order/{id}', [OrderController::class, 'editOrder'])->name('edit-order');
         Route::delete('/delete-selected-order', [OrderController::class, 'deleteSelectOrder'])->name('delete-selected-order');
-        Route::post('/checkout/{id}', [OrderController::class, 'checkout'])->name('checkout-orders');
-        Route::get('/get-provinces/{region_code}', [OrderController::class, 'getProvinces']);
-        Route::get('/get-municipalities/{province_code}', [OrderController::class, 'getMunicipalities']);
-        Route::get('/get-barangays/{municipality_code}', [OrderController::class, 'getBarangays']);
+        //comment muna saglit. lipat q lang sa checkout na controller
+        // Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout-orders');
 
+
+        //checkout routes
+        Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout-orders');
+    
         // SETTINGS ROUTES
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/add-currency', [SettingsController::class, 'addCurrency'])->name('add-currency');
@@ -67,6 +70,11 @@ Route::middleware(['auth'])->group(function () {
 
         //shipping
         Route::get('/shipping', [ShippingController::class, 'shipping'])->name('shipping');
+
+         //Decrement Quantity
+         Route::put('/decrementdown/{id}', [OrderController::class, 'down'])->name('order.down');
+         //Increment Quantity
+         Route::put('/incrementup/{id}', [OrderController::class, 'up'])->name('order.up');
     });
 });
 
