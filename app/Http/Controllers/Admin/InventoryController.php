@@ -197,8 +197,12 @@ class InventoryController extends Controller
 
         if ($order) {
 
-            $order->qty += $request->quantity;
-            $order->sold_price += $request->sold;
+            if (is_numeric($request->quantity)) {
+                $order->qty += $request->quantity;
+            }
+            if (is_numeric($request->sold)) {
+                $order->sold_price += $request->sold;
+            }
             $order->save();
             
         } else {

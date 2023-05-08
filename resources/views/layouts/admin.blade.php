@@ -4,6 +4,9 @@
 <div id="body-wrapper" class="body-container" >
 
 
+<div id="body-wrapper" class="body-container" >
+
+
     {{--Sidebar--}}
     <aside class="fixed-top vh-100" style="width: 250px; background-color: #2E3E4E">
         <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 220px;">
@@ -17,21 +20,24 @@
     </aside>
 
 
+
     {{--page content--}}
     <section class="main-container content-wrapper" style="margin-left: 250px">
 
-        {{--header content--}}
-        <header class="main-nav clearfix sticky-top w-100">
-            @include('layouts.partials.headbar')
-        </header>
+            {{-- header content --}}
+            <header class="main-nav clearfix sticky-top w-100">
+                @include('layouts.partials.headbar')
+            </header>
 
 
-        {{--main content--}}
-        <div class="container-fluid page-content" style="margin-top: 20px;">
-            @yield('admin-content')
-        </div>
 
-        <div class="container-fluid page-content" style="margin-top: 80px; margin-bottom: 100px">
+            {{-- main content --}}
+            <div class="container-fluid page-content" style="margin-top: 20px;">
+                @yield('admin-content')
+            </div>
+            
+            <div class="container-fluid page-content" style="margin-top: 80px; margin-bottom: 100px">
+
                 {{-- message code --}}
                 @if (session('error'))
                     <div class="alert alert-danger">
@@ -45,15 +51,17 @@
                 @endif
 
             </div>
+    </div>
+
+
 
     </section>
+
 
 
 </div>
 
 
 @endsection
-
-
 
 

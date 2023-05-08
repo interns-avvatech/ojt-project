@@ -7,14 +7,16 @@
     "require": {
         "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0.5",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "2.0",
-        "spatie/laravel-activitylog": "^4.7"
+        "spatie/laravel-activitylog": "^4.7",
+        "xendit/xendit-php": "^2.19",
+        "yajra/laravel-address": "^0.7.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
