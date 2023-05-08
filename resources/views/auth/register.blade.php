@@ -1,6 +1,6 @@
-@extends('layouts.auth')
-@section('title', 'Login')
-@section('auth-content')
+@extends('layouts.admin')
+@section('title', 'Settings')
+@section('admin-content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

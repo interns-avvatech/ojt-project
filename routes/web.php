@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,19 +63,26 @@ Route::middleware(['auth'])->group(function () {
 
         //checkout routes
         Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout-orders');
-    
+
         // SETTINGS ROUTES
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/add-currency', [SettingsController::class, 'addCurrency'])->name('add-currency');
         Route::post('/add-method', [SettingsController::class, 'addMethod'])->name('add-method');
 
+        Route::get('/create-user', [SettingsController::class, 'createUser'])->name('create');
+
+        Route::get('/user-management', [SettingsController::class, 'userManage'])->name('manage');
+
+        Route::post('/register', [SettingsController::class, 'register'])->name('setting-register');
+
+
         //shipping
         Route::get('/shipping', [ShippingController::class, 'shipping'])->name('shipping');
 
-         //Decrement Quantity
-         Route::put('/decrementdown/{id}', [OrderController::class, 'down'])->name('order.down');
-         //Increment Quantity
-         Route::put('/incrementup/{id}', [OrderController::class, 'up'])->name('order.up');
+        //Decrement Quantity
+        Route::put('/decrementdown/{id}', [OrderController::class, 'down'])->name('order.down');
+        //Increment Quantity
+        Route::put('/incrementup/{id}', [OrderController::class, 'up'])->name('order.up');
     });
 });
 
