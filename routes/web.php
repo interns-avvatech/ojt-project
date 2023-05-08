@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/increment/{id}', [InventoryController::class, 'up'])->name('quantity.up');
         //Inline Edit price_each (TCG Mid)
         Route::put('/edit/{id}', [InventoryController::class, 'edit'])->name('price_each.edit');
-        Route::post('/update/{id}', [InventoryController::class, 'sold'])->name('csv.update');
+        Route::post('/update/{id}', [InventoryController::class, 'sold'])->name('csv.sold');
         Route::post('/delete/{id}', [InventoryController::class, 'delete'])->name('csv.delete');
         //Selected Delete Inventory
         Route::delete('/delete-selected-inventory', [InventoryController::class, 'deleteSelectInventory'])->name('delete-selected-inventory');
@@ -57,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/delete-order/{tcgplacer_id}/{id}', [OrderController::class, 'returnOrder'])->name('delete-order');
         Route::post('/edit-order/{id}', [OrderController::class, 'editOrder'])->name('edit-order');
         Route::delete('/delete-selected-order', [OrderController::class, 'deleteSelectOrder'])->name('delete-selected-order');
+        Route::get('/get-provinces/{region_code}', [OrderController::class, 'getProvinces']);
+        Route::get('/get-municipalities/{province_code}', [OrderController::class, 'getMunicipalities']);
+        Route::get('/get-barangays/{municipality_code}', [OrderController::class, 'getBarangays']);
         //comment muna saglit. lipat q lang sa checkout na controller
         // Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout-orders');
 

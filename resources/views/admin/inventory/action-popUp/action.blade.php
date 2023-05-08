@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('csv.update', $item['id']) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('csv.sold', $item['id']) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="row">

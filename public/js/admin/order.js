@@ -62,10 +62,9 @@ $(function () {
                 success: function(data) {
                     // alert(JSON.stringify(data,null,2))
                     // return
-                    $('#province').empty();
-                    $('#municipality').empty();
-                    $('#barangay').empty();
-                    $('#province').append('<option value="">Select Province</option>');
+                    $('#province').empty().append('<option >Select Province</option>');
+                    $('#barangay').empty().append('<option >Select Barangay</option>');
+                    $('#municipality').empty().append('<option >Select Municipality</option>');
                     $.each(data, function(key, value) {
                         $('#province').append('<option value="' + value.code +
                             '">' + value.name + '</option>');
@@ -84,10 +83,9 @@ $(function () {
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    $('#municipality').empty();
-                    $('#barangay').empty();
-                    $('#municipality').append(
-                        '<option value="">Select Municipality</option>');
+                    $('#barangay').empty().append('<option >Select Barangay</option>');
+                    $('#municipality').empty().append(
+                        '<option >Select Municipality</option>');
                     $.each(data, function(key, value) {
                         $('#municipality').append('<option value="' + value
                             .code + '">' + value.name + '</option>');
@@ -106,8 +104,7 @@ $(function () {
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    $('#barangay').empty();
-                    $('#barangay').append('<option value="">Select Barangay</option>');
+                    $('#barangay').empty().append('<option >Select Barangay</option>');
                     $.each(data, function(key, value) {
                         $('#barangay').append('<option value="' + value.code +
                             '">' + value.name + '</option>');
