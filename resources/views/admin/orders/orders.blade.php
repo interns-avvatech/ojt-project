@@ -43,6 +43,7 @@
 
                             <td>{{ $order['sold_date'] }}</td>
 
+
                             <td>{{ $order['card_name'] }}</td>
                             <td>{{ $order['tcgplacer_id'] }}</td>
                             <td>{{ $order['finish'] }}</td>
