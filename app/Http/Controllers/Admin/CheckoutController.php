@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CheckOut;
+use App\Models\DataUpload;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Xendit\Invoice;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -17,13 +20,26 @@ class CheckoutController extends Controller
         // dd($orders[0]['set']);
         // dd($request->all());
 
+        // Check if may stock pa
+        foreach ($orders as $order) {
+            $dataUpload = DataUpload::find($order['product']['id']);
+            $quantity = $dataUpload['quantity'] - $order['qty'];
+
+            if ($quantity < 0) {
+
+                return redirect()->back()->with('error', 'There is only ' . $order['product']['quantity'] . ' stocks available for the product of ' . $order['card_name']);
+            }
+
+            $dataUpload->update(['quantity' => $quantity]);
+        }
+
         $successRedirectUrl = route('shipping');
 
         $data = '{
             "id": "579c8d61f23fa4ca35e52da4",
             "user_id": "5781d19b2e2385880609791c",
             "external_id": "demo_1475801962607",
-            "status": "PENDING",
+            "status": "PAID",
             "merchant_name": "Xendit",
             "merchant_profile_picture_url": "https://xnd-companies.s3.amazonaws.com/prod/1493610897264_473.png",
             "amount": 200,
@@ -121,18 +137,62 @@ class CheckoutController extends Controller
 
 
         $arrdata = json_decode($data, true);
-        $arrdata['success_redirect_url'] = $successRedirectUrl;
+        // $arrdata['success_redirect_url'] = $successRedirectUrl;
         //create payment request
-        $response = $client->post('https://api.xendit.co/v2/invoices', ['json'=> $arrdata]);
+        $response = $client->post('https://api.xendit.co/v2/invoices', ['json' => $arrdata]);
 
         // Get the invoice URL from the response
         $invoice = json_decode($response->getBody(), true);
+
+        // orders - destroy and save data
+
+
+        $checkoutId = uniqid();
+        $checkouts = new CheckOut();
+        $checkouts->checkout_id = $checkoutId;
+        $checkouts->sold_to = $request->name;
+        $checkouts->payment_method = $request->payment_methods;
+        $checkouts->ship_cost = $request->ship_cost;
+        $checkouts->ship_price = $request->ship_price;
+        $checkouts->address = $request->address;
+        $checkouts->note = $request->note;
+
+        $total = 0;
+        foreach ($orders as $order) {
+            $total = floatval($order['sold_price']) + $total;
+        }
+        $checkouts->total = number_format($total, 2);
+        
+       dd($checkouts->total);
+        $checkouts->user_id  = Auth::user()->id;
+        $checkouts->cart_contents  = json_encode($orders);
+        $checkouts->save();
+
+        foreach ($orders as $order) {
+            Order::find($order['id'])->delete();
+        }
+
 
         return redirect($invoice['invoice_url']);
     }
 
 
-    public function showCart(){
+
+    public function handleCallback(Request $request)
+    {
+        $response = json_decode($request->getContent(), true);
+
+        if ($response['status'] === 'PAID') {
+            // Redirect to your custom function
+            return redirect()->route('checkout-orders');
+        } else {
+            print_r('aww');
+        }
+    }
+
+
+    public function showCart()
+    {
         return view('admin.cart.cart');
     }
 }

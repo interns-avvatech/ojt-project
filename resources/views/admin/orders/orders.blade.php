@@ -66,7 +66,7 @@
                                             class="btn btn-outline-secondary rounded-pill btn-sm disable-quantity"><i
                                                 class="icon-minus2"></i></button>
                                     </form>
-                                    <span class="mx-3">{{ $order['qty'] }}</span>
+                                    <span class="mx-3 qty">{{ $order['qty'] }}</span>
                                     <form method="post" action="{{ route('order.up', $order['id']) }}"
                                         class="disable-form">
                                         @method('PUT')

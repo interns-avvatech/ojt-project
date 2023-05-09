@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
 
         //checkout routes
         Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout-orders');
+        Route::get('/cart', [CheckoutController::class, 'showCart'])->name('cart');
 
         // SETTINGS ROUTES
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');

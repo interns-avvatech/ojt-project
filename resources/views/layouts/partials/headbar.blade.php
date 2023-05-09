@@ -1,7 +1,7 @@
 <div class="navbar float-right navbar-toggleable-sm">
     <div class="clearfix">
         <ul class="float-right top-icons">
-            <li><a href="{{ route('orders') }}" class="btn-top-search" style="width:5rem">
+            <li><a href="{{ route('cart') }}" class="btn-top-search" style="width:5rem">
                 <i class='fa fa-shopping-bag'></i>
                 <span class="badge badge-danger rounded-pill" style="">0</span></a>
             </li>
