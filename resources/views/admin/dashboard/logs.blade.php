@@ -103,10 +103,6 @@
         </div>
     </div>
 
-
-    {{-- try 0123456 --}}
-
-
     {{--activity logs--}}
 
     <div class="row my-4">

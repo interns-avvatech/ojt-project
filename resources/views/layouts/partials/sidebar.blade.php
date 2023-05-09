@@ -8,16 +8,19 @@
         <li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('dashboard') }}">Dashboard</a>
         </li>
-        {{--@if (Auth::user()->role == 'admin')
+        {{-- @if (Auth::user()->role == 'admin')
         <li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('adminPanel') }}">Admin Panel</a>
         </li>
-        @endif--}}
+        @endif --}}
         <li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('inventoryTable') }}">Inventory</a>
         </li>
         <li class="my-4 text-center">
-            <a class="nav-item nav-link mx-2 text-white" href="{{ route('shipping') }}">Shipping</a>
+            <a class="nav-item nav-link mx-2 text-white" href="{{ route('orders') }}">Cart</a>
+        </li>
+        <li class="my-4 text-center">
+            <a class="nav-item nav-link mx-2 text-white" href="{{ route('shipping') }}">Orders</a>
         </li>
         <li class="my-4 text-center">
             <a class="nav-item nav-link mx-2 text-white" href="{{ route('orders') }}">Orders</a>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/increment/{id}', [InventoryController::class, 'up'])->name('quantity.up');
         //Inline Edit price_each (TCG Mid)
         Route::put('/edit/{id}', [InventoryController::class, 'edit'])->name('price_each.edit');
-        Route::post('/update/{id}', [InventoryController::class, 'sold'])->name('csv.update');
+        Route::post('/update/{id}', [InventoryController::class, 'sold'])->name('csv.sold');
         Route::post('/delete/{id}', [InventoryController::class, 'delete'])->name('csv.delete');
         //Selected Delete Inventory
         Route::delete('/delete-selected-inventory', [InventoryController::class, 'deleteSelectInventory'])->name('delete-selected-inventory');
@@ -71,6 +72,13 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['post', 'get'], '/settings/{id?}', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/add-currency', [SettingsController::class, 'addCurrency'])->name('add-currency');
         Route::post('/add-method', [SettingsController::class, 'addMethod'])->name('add-method');
+
+        Route::get('/create-user', [SettingsController::class, 'createUser'])->name('create');
+
+        Route::get('/user-management', [SettingsController::class, 'userManage'])->name('manage');
+
+        Route::post('/register', [SettingsController::class, 'register'])->name('setting-register');
+
 
         //shipping
         Route::get('/shipping', [ShippingController::class, 'shipping'])->name('shipping');

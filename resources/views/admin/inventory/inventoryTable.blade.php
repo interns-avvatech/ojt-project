@@ -1,13 +1,13 @@
 {{-- Table --}}
 <div class="container-fluid">
     @if (isset($inventories) && count($inventories) > 0)
-        {{--<button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-inventory') }}">Bulk
-            Delete</button>--}}
+        {{-- <button class="btn btn-danger btn-sm my-4 delete_all" data-url="{{ route('delete-selected-inventory') }}">Bulk
+            Delete</button> --}}
         <div class="table-responsive-md">
             <table class="table datatable datatable-column-search-selects table-sm table-hover " id="ojt_flow">
                 <thead class="bg-light table-group-divider table-divider-color">
                     <tr>
-                        <th scope="col"  class="text-center">Selector</th>
+                        <th scope="col" class="text-center"><input type="checkbox" id="selector"></th>
                         <th scope="col" class="text-center">Thumbnail</th>
                         <th scope="col" class="text-center width-400">Name</th>
                         <th scope="col" class="text-center width-400">Color Identity</th>
@@ -16,7 +16,7 @@
                         <th scope="col" class="text-center width-400">Finish</th>
                         <th scope="col" class="text-center width-400">Rarity</th>
                         <th scope="col" class="col-1 text-center"><a href="#sort" data-toggle="modal"
-                               style="text-decoration: none; color:black;">Quantity</a></th>
+                                style="text-decoration: none; color:black;">Quantity</a></th>
                         <th scope="col" class="text-center width-400">TCG Mid</th>
                         <th scope="col" class="text-center">Total</th>
                         <th scope="col" class="text-center">Action</th>
@@ -94,5 +94,5 @@
     @endif
 
 
-    
+
 </div>

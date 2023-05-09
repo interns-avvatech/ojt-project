@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Users;
+use App\Models\Setting;
+use App\Jobs\LocationPH;
 use App\Models\Currency;
+use App\Models\Location;
+use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\PaymentStatus;
-use App\Models\Setting;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 
 class SettingsController extends Controller
 {
@@ -58,5 +63,40 @@ class SettingsController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function createUser()
+    {
+
+        return view('admin.settings.create');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validate(request(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => 'required',
+        ]);
+        
+        $user = new User();
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
+
+        $user = User::all();
+
+        return $user;
+    }
+
+    public function userManage(){
+        // $view = User::with('users');
+        $users = User::all();
+        //dd($users);
+        return view('admin.settings.management', ['users' => $users]);
     }
 }

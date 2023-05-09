@@ -15,7 +15,7 @@
                             <label for="">Sort by price:</label>
                         </div>
                         <div>
-                            <input type="number" name="value" id="sortValue" class="form-control" value="0" required>
+                            <input type="number" name="value" id="sortValue" class="form-control" value="0" min="0" required>
                         </div>
                     </div>
 
